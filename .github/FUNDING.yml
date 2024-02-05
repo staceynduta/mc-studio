@@ -1,3 +1,24 @@
 # These are supported funding model platforms
 
-github: [atapas]
+<div id="paypal-button-container-P-6AS61810MU8202647MKND5RQ"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AYjpbiSB28z4YmEdSj1Jon1fKCuKrEZYd1VtXQyURAhD0VuQUkORmcQcxUxMJOqqKBiqfFEYIJ_zsz6A&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'paypal'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-6AS61810MU8202647MKND5RQ',
+          quantity: 1 // The quantity of the product for a subscription
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-6AS61810MU8202647MKND5RQ'); // Renders the PayPal button
+</script>
