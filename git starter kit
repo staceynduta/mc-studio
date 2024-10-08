@@ -1,0 +1,166 @@
+1. Install git:
+
+Windows- Download and install Git from git-scm.com
+
+Mac- brew install git
+
+Linux- sudo apt-get install git
+
+2. Configure git
+
+git config - - global user.name "Your Name" 
+git config - - global user.email "your.email@example com" 
+
+3. Initial repository 
+
+git init
+
+4. Create new repo
+
+git init
+git remote add origin <repository-url>
+
+5. Clone repo
+
+git clone <repository-url>
+
+6. Git status
+
+git status
+
+7. Git log
+
+git log
+
+8. Staging
+git add <file>
+
+9. Creating a commit
+
+git commit - m"commit message"
+
+10. Creating branches
+
+git branch <branch-name>
+
+11. Merging branches
+
+git merge <branch-name>
+
+12.Reverting with git checkout and git reset
+
+#Discard changes in a file
+
+git checkout - - <file>
+
+#Unstage a file
+
+git reset HEAD <file>
+
+13. Stashing with git stash
+
+# Stash changes
+
+git stash
+
+#List stashes
+
+git stash list
+
+#Apply the most recent stash
+
+git stash apply
+
+14. Undoing with git revert
+
+git revert <commit-hash>
+
+15. Removing files from staging area
+
+git reset <file>
+
+
+16. Managing and removing remote repositories
+
+#Add a remote repository
+
+git remote add origin <remote-url>
+
+#Remove a remote repository 
+
+git remote remove origin
+
+#List remove repositories
+
+git remote-v
+
+
+17. Fetching updates
+
+git fetch origin
+
+
+18. Pushing changes
+
+git push origin <branch-name>
+
+
+19. Pulling changes
+
+git pull origin <branch-name>
+
+
+20. Synchronizing with Upstream
+
+
+git remote add upstream <upstream-repo-url>
+
+git fetch upstream
+git merge upstream/<branch>
+
+21.Connecting local repository to a Github repo
+
+git remote add origin <github-repo-url>
+
+22. Upload local commits
+
+git push - u origin <branch-name>
+
+
+23. Cloning forker repos
+
+git clone <your-forked-repo-url>
+
+
+24. Working with tags
+
+#Create a tag
+
+git tag - a v1.0 - m "Release version 1.0"
+
+#Push tags to a remote
+
+git push origin - - tags
+
+
+
+25. Resolving conflict remotely
+
+#After pulling changes
+
+git merge <branch>
+
+#Resolve conflicts in files
+
+#Add resolved file
+git add <file>
+
+#Commit the merge
+
+git commit
+
+
+26. Cherrypick commits to apply
+
+git cherry-pick <commit-hash>
+
