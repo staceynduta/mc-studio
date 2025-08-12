@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modus Chora Studio - Immersive Media & Design Solutions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .service-description {
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            color: #718096;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #48bb78;
+            font-weight: bold;
+        }
+
+        /* Departments Section */
+        .departments {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .departments h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .dept-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .dept-card:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .dept-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        .dept-description {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Interactive Elements */
+        .tab-container {
+            margin: 2rem 0;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            color: #4a5568;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .process-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+
+        .process-step {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 3rem;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .process-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            position: absolute;
+            left: -2.5rem;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">Modus Chora Studio</h1>
+                <p class="tagline">Immersive Media Solutions & Design Excellence for SMEs and MSMEs</p>
+                <a href="#contact" class="cta-button">Start Your Project</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#services" class="active">Services</a></li>
+                    <li><a href="#departments">Departments</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="services">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎬</div>
+                        <h3 class="service-title">Content Production</h3>
+                        <p class="service-description">Versatile multimedia content creation with agile methodologies and collaborative approach.</p>
+                        <ul class="service-features">
+                            <li>Versatile multimedia team</li>
+                            <li>Agile production methodologies</li>
+                            <li>Collaborative content creation</li>
+                            <li>Designer-technologist integration</li>
+                            <li>Rapid adaptation to client needs</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🥽</div>
+                        <h3 class="service-title">Immersive Experiences</h3>
+                        <p class="service-description">Cutting-edge VR, AR, and immersive media solutions that balance innovation with practicality.</p>
+                        <ul class="service-features">
+                            <li>VR & AR development</li>
+                            <li>Immersive content design</li>
+                            <li>Cutting-edge technology integration</li>
+                            <li>Innovation-practicality balance</li>
+                            <li>Dedicated immersive media team</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🔬</div>
+                        <h3 class="service-title">Research & Development</h3>
+                        <p class="service-description">Stay ahead with latest storytelling innovations and emerging media technologies.</p>
+                        <ul class="service-features">
+                            <li>Storytelling innovation research</li>
+                            <li>Market trend analysis</li>
+                            <li>Audience preference studies</li>
+                            <li>Experimental culture fostering</li>
+                            <li>Technology trend monitoring</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3 class="service-title">Analytics & Tracking</h3>
+                        <p class="service-description">Data-driven campaign optimization with robust analytics and performance measurement.</p>
+                        <ul class="service-features">
+                            <li>Campaign effectiveness measurement</li>
+                            <li>Data-driven decision making</li>
+                            <li>Robust analytics capabilities</li>
+                            <li>Goal-aligned metrics refinement</li>
+                            <li>Performance optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🤝</div>
+                        <h3 class="service-title">Stakeholder Onboarding</h3>
+                        <p class="service-description">Comprehensive onboarding process for SMEs and MSMEs with customized solutions.</p>
+                        <ul class="service-features">
+                            <li>SME & MSME identification</li>
+                            <li>Personalized communication strategies</li>
+                            <li>Capability demonstrations</li>
+                            <li>Pilot project offerings</li>
+                            <li>Long-term partnership building</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">🏗️</div>
+                        <h3 class="service-title">Studio Setup & Scaling</h3>
+                        <p class="service-description">Complete infrastructure setup with capacity assessment and scalability planning.</p>
+                        <ul class="service-features">
+                            <li>Physical infrastructure design</li>
+                            <li>Multidisciplinary talent recruitment</li>
+                            <li>Capacity assessment & planning</li>
+                            <li>Workflow optimization</li>
+                            <li>Scalability roadmapping</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="departments" class="departments">
+                <h2>Studio Departments</h2>
+                
+                <div class="tab-container">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab(event, 'writers-room')">Writers' Room</button>
+                        <button class="tab" onclick="showTab(event, 'researchers-repo')">Research Repository</button>
+                        <button class="tab" onclick="showTab(event, 'archive-mgmt')">Archive Management</button>
+                        <button class="tab" onclick="showTab(event, 'developers-den')">Developers' Den</button>
+                    </div>
+
+                    <div id="writers-room" class="tab-content active">
+                        <div class="dept-grid">
+                            <div class="dept-card">
+                                <h4 class="dept-title">Copy Creation & Ideation</h4>
+                                <p class="dept-description">Structured brainstorming sessions and creative workshops to foster innovation and generate compelling content ideas.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Scripting & Content Development</h4>
+                                <p class="dept-description">Dedicated scriptwriting teams with standardized templates and iterative review processes for quality assurance.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Collaboration & Coordination</h4>
+                                <p class="dept-description">Advanced collaborative tools and regular team alignment meetings to ensure seamless project execution.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="researchers-repo" class="tab-content">
+                        <div class="dept-grid">
+                            <div class="dept-card">
+                                <h4 class="dept-title">Research Data Organization</h4>
+                                <p class="dept-description">Systematic filing and advanced database management for easy retrieval and future reference of research studies.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Knowledge Sharing & Accessibility</h4>
+                                <p class="dept-description">Streamlined protocols and search functionalities for efficient data sharing and team training on repository utilization.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Continuous Updating & Validation</h4>
+                                <p class="dept-description">Regular updates and validation processes to ensure data accuracy, reliability, and contribution to ongoing studies.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="archive-mgmt" class="tab-content">
+                        <div class="dept-grid">
+                            <div class="dept-card">
+                                <h4 class="dept-title">File System Organization</h4>
+                                <p class="dept-description">Structured categorization, version control, and regular auditing to maintain organized and efficient data storage.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Security & Access Control</h4>
+                                <p class="dept-description">Robust security measures with controlled access, backup systems, and comprehensive staff training on data protocols.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Maintenance & Optimization</h4>
+                                <p class="dept-description">Performance optimization, usage pattern analysis, and scalability planning for growing data storage requirements.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="developers-den" class="tab-content">
+                        <div class="dept-grid">
+                            <div class="dept-card">
+                                <h4 class="dept-title">Concept Development & Testing</h4>
+                                <p class="dept-description">Transformative workshops, prototyping phases, and iterative development to refine and improve innovative concepts.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Knowledge Integration & Innovation</h4>
+                                <p class="dept-description">Cross-functional teams and innovation frameworks that encourage experimentation and risk-taking for breakthrough solutions.</p>
+                            </div>
+                            <div class="dept-card">
+                                <h4 class="dept-title">Implementation & Strategy</h4>
+                                <p class="dept-description">Actionable planning based on tested concepts with interdepartmental collaboration and effectiveness monitoring.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="process" style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin: 4rem 0;">
+                <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #2d3748;">Our Process</h2>
+                
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="process-number">1</div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: #2d3748;">Discovery & Research</h4>
+                        <p style="color: #4a5568;">We begin by understanding your business needs, target audience, and market position through comprehensive research and stakeholder interviews.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">2</div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: #2d3748;">Concept Development</h4>
+                        <p style="color: #4a5568;">Our writers' room and developers' den collaborate to transform insights into innovative concepts and actionable strategies.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">3</div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: #2d3748;">Production & Implementation</h4>
+                        <p style="color: #4a5568;">Agile production methodologies ensure rapid adaptation while maintaining quality throughout the content creation and immersive experience development.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-number">4</div>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 1rem; color: #2d3748;">Analytics & Optimization</h4>
+                        <p style="color: #4a5568;">Continuous monitoring, data-driven insights, and iterative improvements ensure maximum campaign effectiveness and ROI.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h2 style="margin-bottom: 2rem; font-size: 2rem;">Ready to Transform Your Media Presence?</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h4>Email Us</h4>
+                        <p>hello@moduschora.studio</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <h4>Call Us</h4>
+                        <p>+254 (0) 700 000 000</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <h4>Visit Us</h4>
+                        <p>Nairobi, Kenya</p>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; opacity: 0.8;">&copy; 2025 Modus Chora Studio. Empowering SMEs & MSMEs through innovative media solutions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function showTab(event, tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-links a').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Add hover effects for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
