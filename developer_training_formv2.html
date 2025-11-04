@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Technology Training - Developer Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ibm-logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-weight: bold;
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .program-overview {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .program-overview h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .highlight-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: #e8edff;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ibm-logo">IBM</div>
+            <h1>8-Week IBM Technology Training</h1>
+            <p>Comprehensive Watson AI & Cloud Development Program</p>
+        </div>
+        
+        <div class="content">
+            <div class="program-overview">
+                <h2>🚀 Transform Your Career with IBM Technology</h2>
+                <p>Join an exclusive 8-week intensive training program designed to certify you in cutting-edge IBM technologies including Watson AI, Cloud Computing, and Machine Learning solutions.</p>
+            </div>
+            
+            <div class="highlights">
+                <div class="highlight-card">
+                    <h3>🎯 Duration</h3>
+                    <p>8 Weeks Intensive<br>Mon-Fri, 9:00 AM - 4:00 PM</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>🏆 Certification</h3>
+                    <p>IBM Official Badges<br>Industry-Recognized Credentials</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>💼 Placement</h3>
+                    <p>Job Placement Support<br>Enterprise Project Deployment</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>🌐 Format</h3>
+                    <p>Virtual + In-Person Labs<br>24/7 Learning Support</p>
+                </div>
+            </div>
+            
+            <form id="applicationForm">
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name <span class="required">*</span></label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name <span class="required">*</span></label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Full residential address"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Professional Background</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="education">Education Level <span class="required">*</span></label>
+                            <select id="education" name="education" required>
+                                <option value="">Select Education Level</option>
+                                <option value="diploma">Diploma</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                                <option value="phd">PhD</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Years of IT Experience <span class="required">*</span></label>
+                            <select id="experience" name="experience" required>
+                                <option value="">Select Experience</option>
+                                <option value="0-1">0-1 years (Fresh Graduate)</option>
+                                <option value="2-3">2-3 years</option>
+                                <option value="4-5">4-5 years</option>
+                                <option value="6-10">6-10 years</option>
+                                <option value="10+">10+ years</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentRole">Current Role/Position</label>
+                        <input type="text" id="currentRole" name="currentRole" placeholder="e.g., Software Developer, IT Analyst">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Current/Previous Company</label>
+                        <input type="text" id="company" name="company" placeholder="Company name">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Technical Skills Assessment</h3>
+                    <div class="form-group">
+                        <label>Programming Languages (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="python" name="languages" value="python">
+                                <label for="python">Python</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="java" name="languages" value="java">
+                                <label for="java">Java</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="javascript" name="languages" value="javascript">
+                                <label for="javascript">JavaScript</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="nodejs" name="languages" value="nodejs">
+                                <label for="nodejs">Node.js</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="csharp" name="languages" value="csharp">
+                                <label for="csharp">C#</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="other-lang" name="languages" value="other">
+                                <label for="other-lang">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Cloud Platforms Experience</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="ibm-cloud" name="cloud" value="ibm-cloud">
+                                <label for="ibm-cloud">IBM Cloud</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="aws" name="cloud" value="aws">
+                                <label for="aws">AWS</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="azure" name="cloud" value="azure">
+                                <label for="azure">Microsoft Azure</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="gcp" name="cloud" value="gcp">
+                                <label for="gcp">Google Cloud</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="no-cloud" name="cloud" value="none">
+                                <label for="no-cloud">No Cloud Experience</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ai-experience">AI/Machine Learning Experience Level <span class="required">*</span></label>
+                        <select id="ai-experience" name="ai-experience" required>
+                            <option value="">Select Experience Level</option>
+                            <option value="none">No Experience</option>
+                            <option value="basic">Basic (Familiar with concepts)</option>
+                            <option value="intermediate">Intermediate (Some hands-on experience)</option>
+                            <option value="advanced">Advanced (Professional experience)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Training Preferences & Commitment</h3>
+                    <div class="form-group">
+                        <label for="availability">Can you commit to full-time training (9:00 AM - 4:00 PM, Mon-Fri)? <span class="required">*</span></label>
+                        <select id="availability" name="availability" required>
+                            <option value="">Select Option</option>
+                            <option value="yes">Yes, I can commit full-time</option>
+                            <option value="partial">Partial availability (please explain below)</option>
+                            <option value="no">No, I cannot commit full-time</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="motivation">Why are you interested in this IBM training program? <span class="required">*</span></label>
+                        <textarea id="motivation" name="motivation" rows="4" placeholder="Describe your career goals and how this training aligns with them" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialization">Which IBM technology area interests you most? <span class="required">*</span></label>
+                        <select id="specialization" name="specialization" required>
+                            <option value="">Select Specialization</option>
+                            <option value="watson-ai">IBM Watson AI & Machine Learning</option>
+                            <option value="cloud">IBM Cloud Infrastructure</option>
+                            <option value="data">IBM Database & Analytics</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additional-info">Additional Information</label>
+                        <textarea id="additional-info" name="additional-info" rows="3" placeholder="Any additional information you'd like to share (previous IBM experience, portfolio links, etc.)"></textarea>
+                    </div>
+                </div>
+                
+                    <div class="form-group">
+                        <label for="organisation">Which organisation referred you to this program? <span class="required">*</span></label>
+                        <select id="organisation" name="organisation" required>
+                            <option value="">Select Option</option>
+                            <option value="organisation1">Power Learn Project</option>
+                            <option value="organisation2">Nafasi Connection</option>
+                            <option value="organisation3">Afrinovation Festival</option>
+                            <option value="organisation4">LevelUp Gaming</option>
+                            <option value="organisation5">Other</option>
+                        </select>
+                    </div>
+                
+                <div class="form-section">
+                    <h3>Equipment & Technical Requirements</h3>
+                    <div class="form-group">
+                        <label for="laptop">Do you have access to a laptop for training? <span class="required">*</span></label>
+                        <select id="laptop" name="laptop" required>
+                            <option value="">Select Option</option>
+                            <option value="yes">Yes, I have a suitable laptop</option>
+                            <option value="need-support">I need laptop support</option>
+                            <option value="no">No, I don't have access to a laptop</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="internet">Internet Connection Quality</label>
+                        <select id="internet" name="internet">
+                            <option value="">Select Connection Quality</option>
+                            <option value="excellent">Excellent (High-speed broadband)</option>
+                            <option value="good">Good (Stable broadband)</option>
+                            <option value="fair">Fair (Basic internet)</option>
+                            <option value="poor">Poor/Unreliable</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    🚀 Submit Application
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let allValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#e74c3c';
+                    allValid = false;
+                } else {
+                    field.style.borderColor = '#e0e6ed';
+                }
+            });
+            
+            if (allValid) {
+                // Simulate form submission
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = '✅ Application Submitted!';
+                submitBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+                
+                setTimeout(() => {
+                    alert('Thank you for your application! We will review your submission and contact you within 3-5 business days.\n\nNext Steps:\n1. Technical assessment (if qualified)\n2. Interview with training coordinators\n3. Training commencement notification\n\nFor questions, contact: training@unifiedhr.co.ke');
+                    
+                    // Reset form
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }, 2000);
+            } else {
+                alert('Please fill in all required fields marked with *');
+            }
+        });
+        
+        // Dynamic form interactions
+        document.getElementById('experience').addEventListener('change', function() {
+            const eduField = document.getElementById('education');
+            if (this.value === '0-1' && !eduField.value) {
+                eduField.focus();
+            }
+        });
+        
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = '#e74c3c';
+                } else {
+                    this.style.borderColor = '#e0e6ed';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
