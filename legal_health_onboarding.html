@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nafasi x MC Studio - Legal Health Check</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .form-section {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .sector-option {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .sector-option:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .sector-option input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .result {
+            display: none;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .score-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .score-display {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .score-number {
+            font-size: 4em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .risk-low { background: #d4edda; color: #155724; }
+        .risk-medium { background: #fff3cd; color: #856404; }
+        .risk-high { background: #f8d7da; color: #721c24; }
+        .risk-critical { background: #dc3545; color: white; }
+        
+        .recommendations {
+            margin-top: 30px;
+        }
+        
+        .recommendation-item {
+            background: #e9ecef;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .tier-recommendation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌸 Legal Health Check</h1>
+            <p>Nafasi x MC Studio Program</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Powered by Okutta and Wairi Advocates</p>
+        </div>
+        
+        <form id="healthCheckForm" class="form-section">
+            <div class="form-group">
+                <label for="companyName">Company Name *</label>
+                <input type="text" id="companyName" required placeholder="Enter your company name">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" required placeholder="+254 7XX XXX XXX">
+            </div>
+            
+            <div class="form-group">
+                <label for="employees">Number of Employees *</label>
+                <select id="employees" required>
+                    <option value="">Select range</option>
+                    <option value="1-10">1-10 employees</option>
+                    <option value="11-50">11-50 employees</option>
+                    <option value="51-100">51-100 employees</option>
+                    <option value="100+">100+ employees</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="revenue">Annual Revenue (KSh) *</label>
+                <select id="revenue" required>
+                    <option value="">Select range</option>
+                    <option value="0-5M">Under 5M</option>
+                    <option value="5M-20M">5M - 20M</option>
+                    <option value="20M-200M">20M - 200M</option>
+                    <option value="200M-500M">200M - 500M</option>
+                    <option value="500M+">500M+</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Select Your Sector *</label>
+                <div class="sector-grid">
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="fintech" required>
+                        💳 FinTech
+                    </label>
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="healthtech" required>
+                        🏥 HealthTech
+                    </label>
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="edtech" required>
+                        📚 EdTech
+                    </label>
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="agritech" required>
+                        🌾 AgriTech
+                    </label>
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="retail" required>
+                        🛒 Retail/E-Commerce
+                    </label>
+                    <label class="sector-option">
+                        <input type="radio" name="sector" value="energy" required>
+                        ⚡ Energy/Manufacturing
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="registered">Is your business registered? *</label>
+                <select id="registered" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="dataProtection">Are you registered with ODPC (Data Protection)? *</label>
+                <select id="dataProtection" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    <option value="not-sure">Not Sure</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="contracts">Do you have written employment contracts? *</label>
+                <select id="contracts" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes, for all employees</option>
+                    <option value="partial">Some employees</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="commercial">Do you have commercial contracts with suppliers/partners? *</label>
+                <select id="commercial" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="ip">Have you registered any trademarks or IP? *</label>
+                <select id="ip" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tax">Are you compliant with KRA tax filings? *</label>
+                <select id="tax" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes, all up to date</option>
+                    <option value="partial">Some outstanding</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="concerns">Any specific legal concerns or upcoming needs?</label>
+                <textarea id="concerns" rows="4" placeholder="E.g., planning fundraising, expanding regionally, compliance issues..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Generate My Legal Health Score</button>
+        </form>
+        
+        <div id="result" class="result">
+            <div class="score-card">
+                <h2 style="color: #667eea; margin-bottom: 20px;">Your Legal Health Score</h2>
+                <div class="score-display">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div id="riskBadge"></div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h3>Company: <span id="resultCompany"></span></h3>
+                    <p>Sector: <span id="resultSector"></span></p>
+                    <p>Employees: <span id="resultEmployees"></span></p>
+                    <p>Revenue: <span id="resultRevenue"></span></p>
+                </div>
+            </div>
+            
+            <div class="recommendations">
+                <h3 style="margin-bottom: 15px;">Priority Actions</h3>
+                <div id="recommendationsList"></div>
+            </div>
+            
+            <div class="tier-recommendation">
+                <h3 style="margin-bottom: 15px;">Recommended Aikya Legal Tier</h3>
+                <div id="tierRecommendation"></div>
+            </div>
+            
+            <button onclick="sendEmail()" class="btn" style="margin-top: 20px;">📧 Email Me This Report</button>
+            <button onclick="location.reload()" class="btn" style="margin-top: 10px; background: #6c757d;">Start New Assessment</button>
+        </div>
+    </div>
+    
+    <script>
+        const formData = {};
+        
+        document.getElementById('healthCheckForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            formData.companyName = document.getElementById('companyName').value;
+            formData.email = document.getElementById('email').value;
+            formData.phone = document.getElementById('phone').value;
+            formData.employees = document.getElementById('employees').value;
+            formData.revenue = document.getElementById('revenue').value;
+            formData.sector = document.querySelector('input[name="sector"]:checked').value;
+            formData.registered = document.getElementById('registered').value;
+            formData.dataProtection = document.getElementById('dataProtection').value;
+            formData.contracts = document.getElementById('contracts').value;
+            formData.commercial = document.getElementById('commercial').value;
+            formData.ip = document.getElementById('ip').value;
+            formData.tax = document.getElementById('tax').value;
+            formData.concerns = document.getElementById('concerns').value;
+            
+            calculateScore();
+        });
+        
+        function calculateScore() {
+            let score = 0;
+            const recommendations = [];
+            
+            if (formData.registered === 'yes') score += 15;
+            else recommendations.push('Register your business entity with the Registrar of Companies');
+            
+            if (formData.dataProtection === 'yes') score += 15;
+            else if (formData.dataProtection === 'no') {
+                recommendations.push('Register as a Data Controller/Processor with ODPC');
+            } else {
+                recommendations.push('Verify your Data Protection registration status');
+            }
+            
+            if (formData.contracts === 'yes') score += 15;
+            else if (formData.contracts === 'partial') {
+                score += 8;
+                recommendations.push('Ensure all employees have written employment contracts');
+            } else {
+                recommendations.push('Create and implement employment contracts for all staff');
+            }
+            
+            if (formData.commercial === 'yes') score += 15;
+            else recommendations.push('Draft commercial contracts with suppliers and partners');
+            
+            if (formData.ip === 'yes') score += 15;
+            else recommendations.push('Register trademarks and protect your intellectual property');
+            
+            if (formData.tax === 'yes') score += 25;
+            else if (formData.tax === 'partial') {
+                score += 12;
+                recommendations.push('Address outstanding KRA tax filings immediately');
+            } else {
+                recommendations.push('Critical: Ensure full KRA tax compliance');
+            }
+            
+            displayResults(score, recommendations);
+        }
+        
+        function displayResults(score, recommendations) {
+            document.getElementById('healthCheckForm').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            
+            document.getElementById('scoreNumber').textContent = score + '%';
+            document.getElementById('resultCompany').textContent = formData.companyName;
+            document.getElementById('resultSector').textContent = formData.sector.toUpperCase();
+            document.getElementById('resultEmployees').textContent = formData.employees;
+            document.getElementById('resultRevenue').textContent = formData.revenue;
+            
+            const riskBadge = document.getElementById('riskBadge');
+            if (score >= 90) {
+                riskBadge.innerHTML = '<span class="risk-badge risk-low">✓ Low Risk - Excellent</span>';
+            } else if (score >= 70) {
+                riskBadge.innerHTML = '<span class="risk-badge risk-medium">⚠ Medium Risk</span>';
+            } else if (score >= 50) {
+                riskBadge.innerHTML = '<span class="risk-badge risk-high">⚠ High Risk</span>';
+            } else {
+                riskBadge.innerHTML = '<span class="risk-badge risk-critical">⚠ Critical Risk</span>';
+            }
+            
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = 'recommendation-item';
+                div.innerHTML = `<strong>•</strong> ${rec}`;
+                recList.appendChild(div);
+            });
+            
+            const tierRec = document.getElementById('tierRecommendation');
+            if (formData.employees === '1-10' || formData.revenue === '0-5M') {
+                tierRec.innerHTML = `
+                    <h4>🥉 AIKYA HUSTLE - The Founder Tier</h4>
+                    <p>Perfect for your stage: Startups & early-stage ventures</p>
+                    <div class="pricing">
+                        <span>From KSh 25,000/month (3-month minimum)</span>
+                        <span>Initial Legal Health Check: KSh 25,000</span>
+                    </div>
+                `;
+            } else if (formData.employees === '11-50' || formData.revenue === '5M-20M' || formData.revenue === '20M-200M') {
+                tierRec.innerHTML = `
+                    <h4>🥈 AIKYA GROW - The Scale Tier</h4>
+                    <p>Ideal for scaling businesses ready to formalize and grow</p>
+                    <div class="pricing">
+                        <span>From KSh 50,000/month (6-month minimum)</span>
+                        <span>Initial Legal Health Check: KSh 25,000</span>
+                    </div>
+                `;
+            } else {
+                tierRec.innerHTML = `
+                    <h4>🥇 AIKYA LEAD - The Market Leader Tier</h4>
+                    <p>For established enterprises and complex operations</p>
+                    <div class="pricing">
+                        <span>From KSh 150,000/month</span>
+                        <span>Initial Legal Health Check: KSh 25,000</span>
+                    </div>
+                `;
+            }
+        }
+        
+        function sendEmail() {
+            const subject = `Legal Health Check Results - ${formData.companyName}`;
+            const body = `
+Dear ${formData.companyName} Team,
+
+Thank you for completing the Nafasi x MC Studio Legal Health Check.
+
+YOUR RESULTS:
+Company: ${formData.companyName}
+Sector: ${formData.sector.toUpperCase()}
+Legal Health Score: ${document.getElementById('scoreNumber').textContent}
+
+Next Steps:
+1. Schedule a consultation with Okutta and Wairi Advocates
+2. Review the recommended Aikya Legal tier for your business stage
+3. Begin addressing priority compliance gaps
+
+Contact us:
+Email: legal@mcstudio.co.ke
+Phone: +254 XXX XXX XXX
+
+Law in Harmony with Growth 🌸
+
+Best regards,
+Okutta and Wairi Advocates
+Nafasi x MC Studio Program
+            `.trim();
+            
+            window.location.href = `mailto:${formData.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            alert('Opening your email client to send the report. Please send the email to receive your detailed scorecard.');
+        }
+    </script>
+</body>
+</html>
