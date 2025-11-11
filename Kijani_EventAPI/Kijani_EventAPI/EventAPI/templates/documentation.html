@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kijani Event API - Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #0f0f0f;
+            background: linear-gradient(135deg, #a8d5e2 0%, #83d18c 50%, #3a7f0d 100%);
+            min-height: 100vh;
+        }
+        .m_container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        .m_logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .m_logo {
+            font-size: 50px;
+            font-weight: bold;
+            color: #3a7f0d;
+            letter-spacing: -1px;
+        }
+        .m_logo .m_domain {
+            color: #0f0f0f;
+        }
+        .m_tagline {
+            font-size: 35px;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            color: #0f0f0f;
+            font-weight: 600;
+        }
+        .m_subtitle {
+            font-size: 20px;
+            opacity: 0.85;
+            color: #0f0f0f;
+            margin-bottom: 30px;
+        }
+        .m_nav {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .m_nav a {
+            color: #3a7f0d;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .m_nav a:hover {
+            background: #f0f9f0;
+        }
+        .m_nav a.m_home-link {
+            background: #3a7f0d;
+            color: white;
+        }
+        .m_nav a.m_home-link:hover {
+            background: #2e6609;
+        }
+        .m_main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+        }
+        .m_section {
+            margin-bottom: 50px;
+        }
+        .m_section-title {
+            font-size: 35px;
+            font-weight: 600;
+            color: #0f0f0f;
+            margin: 40px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3a7f0d;
+        }
+        h3 {
+            color: #3a7f0d;
+            margin: 25px 0 15px 0;
+            font-size: 24px;
+        }
+        h4 {
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        .m_code-block {
+            background: #0f0f0f;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .m_inline-code {
+            background: #f0f9f0;
+            color: #3a7f0d;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .m_table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th {
+            background: #3a7f0d;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e6f4e6;
+        }
+        tr:hover {
+            background: #f0f9f0;
+        }
+        .m_alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+        .m_alert-info {
+            background: #e6f4ff;
+            border-color: #0c5460;
+            color: #0c5460;
+        }
+        .m_alert-warning {
+            background: #fff3cd;
+            border-color: #856404;
+            color: #856404;
+        }
+        .m_alert-success {
+            background: #f0f9f0;
+            border-color: #3a7f0d;
+            color: #2e6609;
+        }
+        .m_badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .m_badge-get {
+            background: #3a7f0d;
+            color: white;
+        }
+        .m_badge-post {
+            background: #83d18c;
+            color: #0f0f0f;
+        }
+        .m_badge-put {
+            background: #f59e0b;
+            color: white;
+        }
+        .m_badge-patch {
+            background: #17a2b8;
+            color: white;
+        }
+        .m_badge-delete {
+            background: #ef4444;
+            color: white;
+        }
+        .m_badge-auth {
+            background: #6c757d;
+            color: white;
+        }
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        li {
+            margin: 8px 0;
+            color: #555;
+        }
+        .m_endpoint-box {
+            background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #3a7f0d20;
+        }
+        .m_endpoint-box:hover {
+            border-color: #3a7f0d;
+        }
+        .m_response-box {
+            background: #f0f9f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #3a7f0d;
+        }
+        .m_error-box {
+            background: #fee;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #ef4444;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            margin-top: 40px;
+        }
+        .m_toc {
+            background: #f0f9f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #3a7f0d20;
+        }
+        .m_toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        .m_toc li {
+            margin: 8px 0;
+        }
+        .m_toc a {
+            color: #3a7f0d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .m_toc a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .m_logo {
+                font-size: 36px;
+            }
+            .m_tagline {
+                font-size: 24px;
+            }
+            .m_main-content {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="m_container">
+        <header>
+            <div class="m_logo-container">
+                <div class="m_logo">kijani<span class="m_domain">.co</span></div>
+            </div>
+            <p class="m_tagline">API Documentation</p>
+            <p class="m_subtitle">Complete Guide to Event Management API</p>
+        </header>
+
+        <div class="m_nav">
+            <a href="/" class="m_home-link">← Back to Home</a>
+            <a href="#introduction">Introduction</a>
+            <a href="#authentication">Authentication</a>
+            <a href="#crud-flow">CRUD Flow</a>
+            <a href="#endpoints">Endpoints</a>
+            <a href="#errors">Errors</a>
+        </div>
+
+        <div class="m_main-content">
+            <!-- Table of Contents -->
+            <div class="m_section" id="toc">
+                <h2 class="m_section-title">📋 Table of Contents</h2>
+                <div class="m_toc">
+                    <ul>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#authentication">Authentication</a></li>
+                        <li><a href="#base-url">API Base URL</a></li>
+                        <li><a href="#crud-flow">Complete CRUD Flow</a>
+                            <ul>
+                                <li><a href="#create">Step 1: Create Event</a></li>
+                                <li><a href="#read">Step 2: Read Events</a></li>
+                                <li><a href="#update">Step 3: Update Event</a></li>
+                                <li><a href="#delete">Step 4: Delete Event</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#endpoints">Event Endpoints Reference</a></li>
+                        <li><a href="#categories">Category Endpoints</a></li>
+                        <li><a href="#errors">Error Handling</a></li>
+                        <li><a href="#example">Complete Workflow Example</a></li>
+                        <li><a href="#tips">Tips & Best Practices</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <div class="m_section" id="introduction">
+                <h2 class="m_section-title">🌱 Introduction</h2>
+                <p>The Kijani Event API is a RESTful API for managing community events. This documentation provides practical examples of how to interact with the API using curl commands.</p>
+                <div class="m_alert m_alert-info">
+                    <strong>Note:</strong> All examples use curl commands. You can adapt these for your preferred HTTP client (Postman, Insomnia, etc.)
+                </div>
+            </div>
+
+            <!-- Authentication -->
+            <div class="m_section" id="authentication">
+                <h2 class="m_section-title">🔐 Authentication</h2>
+                <p>The API uses <strong>HTTP Basic Authentication</strong> for protected endpoints.</p>
+
+                <h3>Step 1: Register a New User</h3>
+                <p><strong>Endpoint:</strong> <span class="m_inline-code">POST /api/v1/auth/register/</span></p>
+                <p>Create a new user account using the registration endpoint:</p>
+                <div class="m_code-block">
+<pre>curl -X POST http://localhost:8000/api/v1/auth/register/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "email": "johndoe@example.com",
+    "password": "securepassword123",
+    "password_confirm": "securepassword123",
+    "first_name": "John",
+    "last_name": "Doe"
+  }'</pre>
+                </div>
+
+                <div class="m_response-box">
+                    <strong>✅ Success Response (HTTP 201 Created):</strong>
+                    <div class="m_code-block">
+<pre>{
+  "user": {
+    "id": 1,
+    "username": "johndoe",
+    "email": "johndoe@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "is_staff": true,
+    "date_joined": "2025-10-19T09:00:00Z"
+  },
+  "message": "User registered successfully. You can now login."
+}</pre>
+                    </div>
+                </div>
+
+                <div class="m_alert m_alert-info">
+                    <strong>Note:</strong> Users are automatically given staff status upon registration, allowing them to create and manage events.
+                </div>
+
+                <h3>Step 2: Login (Verify Credentials)</h3>
+                <p><strong>Endpoint:</strong> <span class="m_inline-code">POST /api/v1/auth/login/</span></p>
+                <p>Verify your credentials using the login endpoint:</p>
+                <div class="m_code-block">
+<pre>curl -X POST http://localhost:8000/api/v1/auth/login/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "password": "securepassword123"
+  }'</pre>
+                </div>
+
+                <div class="m_response-box">
+                    <strong>✅ Success Response (HTTP 200 OK):</strong>
+                    <div class="m_code-block">
+<pre>{
+  "user": {
+    "id": 1,
+    "username": "johndoe",
+    "email": "johndoe@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "is_staff": true,
+    "date_joined": "2025-10-19T09:00:00Z"
+  },
+  "message": "Login successful. Use Basic Authentication with your credentials for API requests."
+}</pre>
+                    </div>
+                </div>
+
+                <h3>Step 3: View/Update Profile</h3>
+                <p><strong>Endpoint:</strong> <span class="m_inline-code">GET /api/v1/auth/profile/</span></p>
+                <p>View or update your user profile (requires authentication):</p>
+                <div class="m_code-block">
+<pre># Get profile
+curl http://localhost:8000/api/v1/auth/profile/ \
+  -u johndoe:securepassword123
+
+# Update profile
+curl -X PATCH http://localhost:8000/api/v1/auth/profile/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{"first_name": "Johnny", "last_name": "Doe"}'</pre>
+                </div>
+
+                <h3>Using Authentication in Requests</h3>
+                <p>Include credentials in your curl requests using the <span class="m_inline-code">-u</span> flag:</p>
+                <div class="m_code-block">
+<pre>curl -u username:password http://localhost:8000/api/v1/events/</pre>
+                </div>
+
+                <h3>Public vs Protected Endpoints</h3>
+                <div class="m_endpoint-box">
+                    <h4>Public (No Auth Required)</h4>
+                    <ul>
+                        <li>GET requests to view events</li>
+                        <li>GET requests to view categories</li>
+                    </ul>
+                    <h4>Protected (Auth Required)</h4>
+                    <ul>
+                        <li>POST - Create new events (requires staff)</li>
+                        <li>PUT/PATCH - Update events (must be event organizer)</li>
+                        <li>DELETE - Delete events (must be event organizer)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Base URL -->
+            <div class="m_section" id="base-url">
+                <h2 class="m_section-title">🌐 API Base URL</h2>
+                <div class="m_code-block">
+<pre>http://localhost:8000/api/v1/events/</pre>
+                </div>
+                <p>For production, replace <span class="m_inline-code">localhost:8000</span> with your actual domain.</p>
+            </div>
+
+            <!-- CRUD Flow -->
+            <div class="m_section" id="crud-flow">
+                <h2 class="m_section-title">🔄 Complete CRUD Flow</h2>
+                <p>This section demonstrates a complete workflow: creating an event, reading it, updating it, and finally deleting it.</p>
+
+                <!-- CREATE -->
+                <div id="create">
+                    <h3><span class="m_badge m_badge-post">POST</span> Step 1: Create an Event</h3>
+                    <p><strong>Endpoint:</strong> <span class="m_inline-code">POST /api/v1/events/</span></p>
+                    <p><span class="m_badge m_badge-auth">Auth Required</span> (staff user)</p>
+
+                    <div class="m_code-block">
+<pre>curl -X POST http://localhost:8000/api/v1/events/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{
+    "title": "Tech Meetup: Introduction to Django REST Framework",
+    "description": "Join us for an exciting evening learning about building APIs with Django REST Framework.",
+    "event_date": "2025-12-01T18:00:00Z",
+    "end_date": "2025-12-01T21:00:00Z",
+    "location": "Nairobi Innovation Hub, Ngong Road",
+    "latitude": -1.286389,
+    "longitude": 36.817223,
+    "category": 1,
+    "capacity": 50,
+    "price": 0,
+    "is_free": true,
+    "registration_deadline": "2025-11-30T23:59:59Z",
+    "allow_waitlist": false
+  }'</pre>
+                    </div>
+
+                    <div class="m_response-box">
+                        <strong>✅ Success Response (HTTP 201 Created):</strong>
+                        <div class="m_code-block">
+<pre>{
+  "title": "Tech Meetup: Introduction to Django REST Framework",
+  "description": "Join us for an exciting evening...",
+  "event_date": "2025-12-01T18:00:00Z",
+  "end_date": "2025-12-01T21:00:00Z",
+  "location": "Nairobi Innovation Hub, Ngong Road",
+  "latitude": "-1.286389",
+  "longitude": "36.817223",
+  "category": 1,
+  "capacity": 50,
+  "price": "0.00",
+  "is_free": true,
+  "registration_deadline": "2025-11-30T23:59:59Z",
+  "allow_waitlist": false
+}</pre>
+                        </div>
+                    </div>
+                    <div class="m_alert m_alert-info">
+                        <strong>Note:</strong> The API automatically generates a slug from the title: <span class="m_inline-code">tech-meetup-introduction-to-django-rest-framework</span>
+                    </div>
+                </div>
+
+                <!-- READ -->
+                <div id="read">
+                    <h3><span class="m_badge m_badge-get">GET</span> Step 2: Read Events</h3>
+
+                    <h4>2a. List All Events</h4>
+                    <p><strong>Endpoint:</strong> <span class="m_inline-code">GET /api/v1/events/</span></p>
+                    <p>No Authentication Required</p>
+
+                    <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/events/</pre>
+                    </div>
+
+                    <div class="m_response-box">
+                        <strong>Response:</strong>
+                        <div class="m_code-block">
+<pre>{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "title": "Tech Meetup: Introduction to Django REST Framework",
+      "slug": "tech-meetup-introduction-to-django-rest-framework",
+      "description": "Join us for an exciting evening...",
+      "event_date": "2025-12-01T18:00:00Z",
+      "location": "Nairobi Innovation Hub, Ngong Road",
+      "organizer": {
+        "id": 1,
+        "username": "johndoe",
+        "email": "johndoe@example.com"
+      },
+      "capacity": 50,
+      "current_attendees": 0,
+      "available_spots": 50,
+      "status": "upcoming",
+      "is_full": false
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+
+                    <h4>2b. Get Single Event by Slug</h4>
+                    <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/events/tech-meetup-introduction-to-django-rest-framework/</pre>
+                    </div>
+
+                    <h4>2c. Get Upcoming Events Only</h4>
+                    <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/events/upcoming/</pre>
+                    </div>
+
+                    <h4>2d. Search Events</h4>
+                    <div class="m_code-block">
+<pre># Search by title, description, or location
+curl "http://localhost:8000/api/v1/events/?search=Django"</pre>
+                    </div>
+                </div>
+
+                <!-- UPDATE -->
+                <div id="update">
+                    <h3><span class="m_badge m_badge-patch">PATCH</span><span class="m_badge m_badge-put">PUT</span> Step 3: Update Event</h3>
+
+                    <h4>3a. Partial Update with PATCH</h4>
+                    <p><span class="m_badge m_badge-auth">Auth Required</span> (must be the event organizer)</p>
+
+                    <div class="m_code-block">
+<pre>curl -X PATCH http://localhost:8000/api/v1/events/tech-meetup-introduction-to-django-rest-framework/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{
+    "capacity": 75,
+    "image_url": "https://example.com/images/django-meetup.jpg"
+  }'</pre>
+                    </div>
+
+                    <h4>3b. Full Update with PUT</h4>
+                    <div class="m_code-block">
+<pre>curl -X PUT http://localhost:8000/api/v1/events/tech-meetup-introduction-to-django-rest-framework/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{
+    "title": "Advanced Django REST Framework Workshop",
+    "description": "Deep dive into advanced DRF concepts...",
+    "event_date": "2025-12-05T14:00:00Z",
+    "end_date": "2025-12-05T18:00:00Z",
+    "location": "iHub Nairobi",
+    "category": 1,
+    "capacity": 30,
+    "price": 1500.00,
+    "is_free": false,
+    "registration_deadline": "2025-12-04T23:59:59Z",
+    "allow_waitlist": true
+  }'</pre>
+                    </div>
+                </div>
+
+                <!-- DELETE -->
+                <div id="delete">
+                    <h3><span class="m_badge m_badge-delete">DELETE</span> Step 4: Delete Event</h3>
+                    <p><span class="m_badge m_badge-auth">Auth Required</span> (must be the event organizer)</p>
+
+                    <div class="m_code-block">
+<pre>curl -X DELETE http://localhost:8000/api/v1/events/tech-meetup-introduction-to-django-rest-framework/ \
+  -u johndoe:securepassword123</pre>
+                    </div>
+
+                    <div class="m_response-box">
+                        <strong>✅ Success Response:</strong> HTTP 204 No Content (empty response body)
+                    </div>
+
+                    <h4>Verify Deletion</h4>
+                    <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/events/tech-meetup-introduction-to-django-rest-framework/</pre>
+                    </div>
+
+                    <div class="m_error-box">
+                        <strong>❌ Response (HTTP 404 Not Found):</strong>
+                        <div class="m_code-block">
+<pre>{
+  "error": "http404",
+  "message": "No Event matches the given query."
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endpoints Reference -->
+            <div class="m_section" id="endpoints">
+                <h2 class="m_section-title">📋 API Endpoints Reference</h2>
+
+                <h3>Authentication Endpoints</h3>
+                <div class="m_table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Auth Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="m_badge m_badge-post">POST</span></td>
+                                <td>/api/v1/auth/register/</td>
+                                <td>Register a new user account</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-post">POST</span></td>
+                                <td>/api/v1/auth/login/</td>
+                                <td>Login and verify credentials</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-get">GET</span></td>
+                                <td>/api/v1/auth/profile/</td>
+                                <td>Get current user profile</td>
+                                <td>Yes</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-patch">PATCH</span></td>
+                                <td>/api/v1/auth/profile/</td>
+                                <td>Update user profile</td>
+                                <td>Yes</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Event Endpoints</h3>
+                <div class="m_table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Endpoint</th>
+                                <th>Description</th>
+                                <th>Auth Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="m_badge m_badge-get">GET</span></td>
+                                <td>/api/v1/events/</td>
+                                <td>List all published events</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-post">POST</span></td>
+                                <td>/api/v1/events/</td>
+                                <td>Create a new event</td>
+                                <td>Yes (staff)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-get">GET</span></td>
+                                <td>/api/v1/events/upcoming/</td>
+                                <td>List upcoming events only</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-get">GET</span></td>
+                                <td>/api/v1/events/&lt;slug&gt;/</td>
+                                <td>Get event details</td>
+                                <td>No</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-put">PUT</span></td>
+                                <td>/api/v1/events/&lt;slug&gt;/</td>
+                                <td>Full update of event</td>
+                                <td>Yes (organizer)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-patch">PATCH</span></td>
+                                <td>/api/v1/events/&lt;slug&gt;/</td>
+                                <td>Partial update of event</td>
+                                <td>Yes (organizer)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="m_badge m_badge-delete">DELETE</span></td>
+                                <td>/api/v1/events/&lt;slug&gt;/</td>
+                                <td>Delete event</td>
+                                <td>Yes (organizer)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Required Fields for Creating Events</h3>
+                <div class="m_endpoint-box">
+                    <ul>
+                        <li><span class="m_inline-code">title</span> - string (required)</li>
+                        <li><span class="m_inline-code">description</span> - string (required)</li>
+                        <li><span class="m_inline-code">event_date</span> - datetime (required, must be in future)</li>
+                        <li><span class="m_inline-code">location</span> - string (required)</li>
+                        <li><span class="m_inline-code">capacity</span> - integer (required, min: 1)</li>
+                    </ul>
+                </div>
+
+                <h3>Optional Fields</h3>
+                <div class="m_endpoint-box">
+                    <ul>
+                        <li><span class="m_inline-code">end_date</span> - datetime</li>
+                        <li><span class="m_inline-code">registration_deadline</span> - datetime</li>
+                        <li><span class="m_inline-code">latitude</span> - decimal</li>
+                        <li><span class="m_inline-code">longitude</span> - decimal</li>
+                        <li><span class="m_inline-code">category</span> - integer (category ID)</li>
+                        <li><span class="m_inline-code">price</span> - decimal (default: 0.00)</li>
+                        <li><span class="m_inline-code">is_free</span> - boolean (default: true)</li>
+                        <li><span class="m_inline-code">image_url</span> - string (URL)</li>
+                        <li><span class="m_inline-code">allow_waitlist</span> - boolean (default: false)</li>
+                    </ul>
+                </div>
+
+                <h3>Auto-Generated Fields</h3>
+                <div class="m_alert m_alert-success">
+                    These fields are automatically set by the system:
+                    <ul>
+                        <li><span class="m_inline-code">id</span> - Unique identifier</li>
+                        <li><span class="m_inline-code">slug</span> - URL-friendly version of title</li>
+                        <li><span class="m_inline-code">organizer</span> - Set to authenticated user</li>
+                        <li><span class="m_inline-code">current_attendees</span> - Defaults to 0</li>
+                        <li><span class="m_inline-code">status</span> - Auto-calculated based on dates</li>
+                        <li><span class="m_inline-code">created_at</span> - Timestamp of creation</li>
+                        <li><span class="m_inline-code">updated_at</span> - Timestamp of last update</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="m_section" id="categories">
+                <h2 class="m_section-title">🏷️ Category Endpoints</h2>
+
+                <h3>List All Categories</h3>
+                <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/categories/</pre>
+                </div>
+
+                <h3>Get Category Details with Events</h3>
+                <div class="m_code-block">
+<pre>curl http://localhost:8000/api/v1/categories/&lt;slug&gt;/</pre>
+                </div>
+            </div>
+
+            <!-- Error Handling -->
+            <div class="m_section" id="errors">
+                <h2 class="m_section-title">⚠️ Error Handling</h2>
+
+                <h3>Common Error Responses</h3>
+
+                <h4>400 Bad Request - Validation Error</h4>
+                <div class="m_error-box">
+                    <div class="m_code-block">
+<pre>{
+  "error": "validationerror",
+  "message": "Invalid input data",
+  "details": {
+    "event_date": ["Event date must be in the future."],
+    "capacity": ["Capacity must be at least 1."]
+  }
+}</pre>
+                    </div>
+                </div>
+
+                <h4>401 Unauthorized - Missing Authentication</h4>
+                <div class="m_error-box">
+                    <div class="m_code-block">
+<pre>{
+  "error": "authenticationfailed",
+  "message": "Authentication credentials were not provided."
+}</pre>
+                    </div>
+                </div>
+
+                <h4>403 Forbidden - Permission Denied</h4>
+                <div class="m_error-box">
+                    <div class="m_code-block">
+<pre>{
+  "error": "permissiondenied",
+  "message": "You do not have permission to perform this action."
+}</pre>
+                    </div>
+                </div>
+
+                <h4>404 Not Found</h4>
+                <div class="m_error-box">
+                    <div class="m_code-block">
+<pre>{
+  "error": "http404",
+  "message": "No Event matches the given query."
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complete Example -->
+            <div class="m_section" id="example">
+                <h2 class="m_section-title">🚀 Complete Workflow Example</h2>
+                <p>Here's a complete example of creating and managing a paid event from start to finish:</p>
+
+                <div class="m_code-block">
+<pre># 1. Create a paid event
+curl -X POST http://localhost:8000/api/v1/events/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{
+    "title": "Startup Networking Night",
+    "description": "Connect with fellow entrepreneurs...",
+    "event_date": "2025-11-25T19:00:00Z",
+    "end_date": "2025-11-25T22:00:00Z",
+    "location": "The Hub Karen, Karen Road",
+    "capacity": 100,
+    "price": 2000.00,
+    "is_free": false,
+    "allow_waitlist": true
+  }'
+
+# 2. View the created event
+curl http://localhost:8000/api/v1/events/startup-networking-night/
+
+# 3. Update capacity due to high demand
+curl -X PATCH http://localhost:8000/api/v1/events/startup-networking-night/ \
+  -H "Content-Type: application/json" \
+  -u johndoe:securepassword123 \
+  -d '{"capacity": 150}'
+
+# 4. Search for events
+curl "http://localhost:8000/api/v1/events/?search=Startup"
+
+# 5. Delete if cancelled
+curl -X DELETE http://localhost:8000/api/v1/events/startup-networking-night/ \
+  -u johndoe:securepassword123</pre>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="m_section" id="tips">
+                <h2 class="m_section-title">💡 Tips & Best Practices</h2>
+
+                <div class="m_alert m_alert-warning">
+                    <h4>Important Guidelines:</h4>
+                    <ol>
+                        <li><strong>Date Formats:</strong> Always use ISO 8601 format with UTC timezone (e.g., <span class="m_inline-code">2025-12-01T18:00:00Z</span>)</li>
+                        <li><strong>Slugs:</strong> The system auto-generates URL-friendly slugs from titles. Use these slugs in URLs, not IDs.</li>
+                        <li><strong>Permissions:</strong> Users must be staff members to create events. Only event organizers can update or delete their events.</li>
+                        <li><strong>Validation:</strong> Event dates must be in the future, end date must be after event date, and capacity cannot be reduced below current attendees.</li>
+                        <li><strong>Pagination:</strong> List endpoints return paginated results (default: 10 items per page). Use <span class="m_inline-code">?page=2</span> for next page.</li>
+                        <li><strong>Search:</strong> The search parameter works across title, description, and location fields.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Running the Server -->
+            <div class="m_section" id="setup">
+                <h2 class="m_section-title">⚙️ Running the Development Server</h2>
+                <div class="m_code-block">
+<pre># Activate virtual environment
+source venv/bin/activate
+
+# Run migrations
+python manage.py migrate
+
+# Create superuser (for admin access)
+python manage.py createsuperuser
+
+# Start server
+python manage.py runserver</pre>
+                </div>
+
+                <div class="m_endpoint-box">
+                    <p><strong>Access Points:</strong></p>
+                    <ul>
+                        <li>API: <a href="http://localhost:8000/api/v1/events/" style="color: #3a7f0d;">http://localhost:8000/api/v1/events/</a></li>
+                        <li>Admin Panel: <a href="http://localhost:8000/admin/" style="color: #3a7f0d;">http://localhost:8000/admin/</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Kijani Event API. Built with Django & Django REST Framework.</p>
+            <p style="margin-top: 10px; opacity: 0.8">
+                Made with ❤️ for community managers everywhere
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

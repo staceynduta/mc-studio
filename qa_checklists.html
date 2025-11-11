@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC Studio x OW - QA Checklists & Compliance Matrices</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover {
+            background: #e9ecef;
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: -3px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .checklist-section {
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .checklist-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .checklist-body {
+            padding: 20px;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+        
+        .checklist-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .checklist-item input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .priority-high {
+            background: #fee;
+            color: #c00;
+        }
+        
+        .priority-medium {
+            background: #ffeaa7;
+            color: #d63031;
+        }
+        
+        .priority-low {
+            background: #dff9fb;
+            color: #0984e3;
+        }
+        
+        .compliance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .compliance-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .compliance-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .compliance-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-compliant {
+            background: #00b894;
+        }
+        
+        .status-partial {
+            background: #fdcb6e;
+        }
+        
+        .status-non-compliant {
+            background: #d63031;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00b894 0%, #55efc4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: width 0.5s ease;
+        }
+        
+        .sector-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .sector-ftx { background: #74b9ff; color: #0984e3; }
+        .sector-htx { background: #fab1a0; color: #d63031; }
+        .sector-etx { background: #a29bfe; color: #6c5ce7; }
+        .sector-atx { background: #55efc4; color: #00b894; }
+        .sector-rec { background: #ffeaa7; color: #fdcb6e; }
+        .sector-enm { background: #fd79a8; color: #e84393; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 QA Checklists & Compliance Dashboard</h1>
+            <p>MC Studio x Okutta & Wairi Advocates | Quality Assurance Framework</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('research')">Research QA</button>
+            <button class="nav-tab" onclick="switchTab('dev')">Development QA</button>
+            <button class="nav-tab" onclick="switchTab('writers')">Writers Room QA</button>
+            <button class="nav-tab" onclick="switchTab('archive')">Archive Approval</button>
+            <button class="nav-tab" onclick="switchTab('compliance')">Sector Compliance</button>
+            <button class="nav-tab" onclick="switchTab('legal')">Legal Health Check</button>
+        </div>
+        
+        <div class="content">
+            <!-- RESEARCH QA TAB -->
+            <div id="research" class="tab-content active">
+                <h2>📊 Research Repo Quality Checklist</h2>
+                <p style="color: #666; margin-bottom: 20px;">File: XSC_ARC_RES-QA-CHECKLIST_FORM_202511_v1.0</p>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">📋 Documentation Standards</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res1">
+                            <label for="res1">File nomenclature follows MC Studio standard: [SECTOR]_RES_[PROJECT]_[DOCTYPE]_[YYYYMM]_[VERSION] <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res2">
+                            <label for="res2">All sections of research template are complete (Executive Summary, Methodology, Findings, Recommendations) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res3">
+                            <label for="res3">Metadata tags properly populated (sector, department, project, author, date) <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res4">
+                            <label for="res4">Document version history maintained with change log <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🔍 Data Quality & Sources</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res5">
+                            <label for="res5">Minimum 3 credible sources cited for each major claim <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res6">
+                            <label for="res6">All sources dated within last 6 months for market research, 12 months for regulatory <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res7">
+                            <label for="res7">Primary sources prioritized over secondary (government reports, industry bodies, direct surveys) <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res8">
+                            <label for="res8">Market size data validated from 2+ independent sources <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res9">
+                            <label for="res9">All statistics include source citation and date <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">⚖️ Legal & Regulatory Accuracy</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res10">
+                            <label for="res10">All referenced legislation verified against Kenya Law Reports <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res11">
+                            <label for="res11">Regulatory body requirements documented (CBK, CAK, EPRA, KRA, ODPC as applicable) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res12">
+                            <label for="res12">Cross-referenced with OW Advocates legal database for accuracy <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res13">
+                            <label for="res13">Compliance timelines and procedures clearly outlined <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res14">
+                            <label for="res14">Risk assessment matrix included with severity ratings <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🎯 Sector-Specific Requirements</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res15">
+                            <label for="res15">Sector classification confirmed (FTX/HTX/ETX/ATX/REC/ENM) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res16">
+                            <label for="res16">Kenya-specific context and local market dynamics addressed <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res17">
+                            <label for="res17">EMEA regional considerations included where relevant <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res18">
+                            <label for="res18">Competitive landscape mapped with minimum 5 key players identified <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">✅ Review & Approval</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res19">
+                            <label for="res19">Peer review completed by department colleague (sign-off required) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res20">
+                            <label for="res20">Writers Room clarity pass completed (WRT sign-off required) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res21">
+                            <label for="res21">OW Advocates legal review completed for regulatory content <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="res22">
+                            <label for="res22">All QA sign-off fields populated in document footer <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadChecklist('research')">📥 Download Research QA Checklist</button>
+            </div>
+            
+            <!-- DEVELOPMENT QA TAB -->
+            <div id="dev" class="tab-content">
+                <h2>💻 Developers Den Quality Checklist</h2>
+                <p style="color: #666; margin-bottom: 20px;">File: XSC_ARC_DEV-QA-CHECKLIST_FORM_202511_v1.0</p>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🏗️ Code Standards & Structure</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev1">
+                            <label for="dev1">File nomenclature follows Git repository standards <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev2">
+                            <label for="dev2">Code follows established naming conventions (variables, functions, classes) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev3">
+                            <label for="dev3">Consistent indentation and formatting applied <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev4">
+                            <label for="dev4">No commented-out code blocks remaining in production code <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev5">
+                            <label for="dev5">Magic numbers replaced with named constants <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🔒 Security (IBM & OWASP Standards)</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev6">
+                            <label for="dev6">OWASP Top 10 vulnerabilities checked (injection, broken auth, XSS, etc.) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev7">
+                            <label for="dev7">No hardcoded credentials, API keys, or sensitive data <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev8">
+                            <label for="dev8">Input validation implemented for all user inputs <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev9">
+                            <label for="dev9">Secure password hashing used (bcrypt, Argon2, or equivalent) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev10">
+                            <label for="dev10">HTTPS enforced for all API endpoints and data transmission <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev11">
+                            <label for="dev11">Security scan completed with no critical vulnerabilities <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🧪 Testing & Quality</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev12">
+                            <label for="dev12">Unit tests written with minimum 80% code coverage <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev13">
+                            <label for="dev13">All tests passing in CI/CD pipeline <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev14">
+                            <label for="dev14">Integration tests cover critical user flows <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev15">
+                            <label for="dev15">Edge cases and error handling tested <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev16">
+                            <label for="dev16">Performance benchmarks met (load time, response time, throughput) <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">📚 Documentation</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev17">
+                            <label for="dev17">Inline code comments for complex logic <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev18">
+                            <label for="dev18">README.md updated with setup instructions <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev19">
+                            <label for="dev19">API documentation generated/updated (Swagger, Postman, etc.) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev20">
+                            <label for="dev20">Technical documentation reviewed by Writers Room for clarity <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev21">
+                            <label for="dev21">Architecture diagrams updated (if applicable) <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🎯 Sector-Specific Compliance</div>
+                    <div class="checklist-body">
+                        <div class="info-box">
+                            <h3>Select your sector for specific requirements:</h3>
+                            <div style="margin-top: 10px;">
+                                <span class="sector-badge sector-ftx">FTX - Fintech</span>
+                                <span class="sector-badge sector-htx">HTX - Healthtech</span>
+                                <span class="sector-badge sector-etx">ETX - Edtech</span>
+                                <span class="sector-badge sector-atx">ATX - Agritech</span>
+                                <span class="sector-badge sector-rec">REC - Retail/Ecommerce</span>
+                                <span class="sector-badge sector-enm">ENM - Energy/Manufacturing</span>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev22">
+                            <label for="dev22"><strong>FTX:</strong> PCI-DSS compliance verified, CBK API standards met, transaction audit logging implemented <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev23">
+                            <label for="dev23"><strong>HTX:</strong> Patient data anonymization protocols, ODPC compliance, consent management, HIPAA-equivalent security <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev24">
+                            <label for="dev24"><strong>ETX:</strong> Child data protection (COPPA-equivalent), content moderation, WCAG 2.1 accessibility <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev25">
+                            <label for="dev25"><strong>ATX:</strong> IoT sensor validation, supply chain traceability, weather API integration tested <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev26">
+                            <label for="dev26"><strong>REC:</strong> Payment gateway security, inventory accuracy, customer data protection, transaction logging <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev27">
+                            <label for="dev27"><strong>ENM:</strong> Industrial IoT security, SCADA safety protocols, environmental data accuracy <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">✅ Review & Approval</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev28">
+                            <label for="dev28">Peer code review completed with approval <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev29">
+                            <label for="dev29">Security review completed by DevSecOps lead <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev30">
+                            <label for="dev30">Technical documentation reviewed by WRT <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev31">
+                            <label for="dev31">OW legal compliance review for sector-specific requirements <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="dev32">
+                            <label for="dev32">Archive Management final approval for deployment <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadChecklist('dev')">📥 Download Dev QA Checklist</button>
+            </div>
+            
+            <!-- WRITERS ROOM QA TAB -->
+            <div id="writers" class="tab-content">
+                <h2>✍️ Writers Room Quality Checklist</h2>
+                <p style="color: #666; margin-bottom: 20px;">File: XSC_ARC_WRT-QA-CHECKLIST_FORM_202511_v1.0</p>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">📝 Clarity & Readability</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt1">
+                            <label for="wrt1">Flesch Reading Ease Score: 60-70 (Plain English) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt2">
+                            <label for="wrt2">Average sentence length under 20 words <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt3">
+                            <label for="wrt3">Technical jargon minimized or defined in glossary <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt4">
+                            <label for="wrt4">Active voice used in >70% of sentences <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt5">
+                            <label for="wrt5">Consistent terminology throughout document <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt6">
+                            <label for="wrt6">Grammar and spelling checked (Grammarly or equivalent) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🎨 Formatting & Structure</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt7">
+                            <label for="wrt7">Consistent heading hierarchy (H1→H2→H3) maintained <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt8">
+                            <label for="wrt8">Table of contents included for documents >10 pages <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt9">
+                            <label for="wrt9">Visual elements properly captioned and referenced in text <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt10">
+                            <label for="wrt10">Cross-references hyperlinked or page-numbered <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt11">
+                            <label for="wrt11">MC Studio brand guidelines followed (fonts, colors, logos) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt12">
+                            <label for="wrt12">Page numbers and headers/footers properly formatted <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">⚖️ Legal & Compliance</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt13">
+                            <label for="wrt13">No unsubstantiated claims or guarantees <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt14">
+                            <label for="wrt14">Proper disclaimers included (legal, financial, medical as applicable) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt15">
+                            <label for="wrt15">Client confidentiality maintained (no sensitive data exposed) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt16">
+                            <label for="wrt16">IP ownership clearly attributed (trademarks, copyrights cited) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt17">
+                            <label for="wrt17">Regulatory language accurately represented (cross-checked with OW) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">📊 Content Quality</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt18">
+                            <label for="wrt18">Executive summary provided (1 page max for reports) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt19">
+                            <label for="wrt19">Data visualizations clear and properly labeled <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt20">
+                            <label for="wrt20">Actionable recommendations clearly highlighted <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt21">
+                            <label for="wrt21">Next steps outlined for client action <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt22">
+                            <label for="wrt22">Contact information for follow-up included <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">✅ Review & Approval</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt23">
+                            <label for="wrt23">Fact-checked against original RES/DEV sources <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt24">
+                            <label for="wrt24">Technical accuracy verified with originating department <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt25">
+                            <label for="wrt25">OW Advocates legal review completed for client-facing documents <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wrt26">
+                            <label for="wrt26">WRT editor sign-off documented <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadChecklist('writers')">📥 Download Writers Room QA Checklist</button>
+            </div>
+            
+            <!-- ARCHIVE APPROVAL TAB -->
+            <div id="archive" class="tab-content">
+                <h2>📁 Archive Management Final Approval Checklist</h2>
+                <p style="color: #666; margin-bottom: 20px;">File: XSC_ARC_FINAL-APPROVAL_FORM_202511_v1.0</p>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">📋 Administrative Compliance</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc1">
+                            <label for="arc1">File nomenclature system followed exactly: [SECTOR]_[DEPT]_[PROJECT]_[DOCTYPE]_[YYYYMM]_[VERSION] <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc2">
+                            <label for="arc2">All metadata tags complete and accurate <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc3">
+                            <label for="arc3">Version control documented with change log <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc4">
+                            <label for="arc4">Access level classification assigned (Public/Internal/Confidential/Restricted) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc5">
+                            <label for="arc5">Backup created in archive repository <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">✅ QA Sign-Off Verification</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc6">
+                            <label for="arc6">Originating department sign-off present (RES or DEV) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc7">
+                            <label for="arc7">Peer review completed with reviewer name and date <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc8">
+                            <label for="arc8">Writers Room refinement completed (if applicable) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc9">
+                            <label for="arc9">OW Advocates legal review completed (if required) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">⚖️ Compliance Verification</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc10">
+                            <label for="arc10">Sector-specific regulations addressed (CBK, CAK, EPRA, KRA, ODPC) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc11">
+                            <label for="arc11">Client confidentiality maintained throughout document <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc12">
+                            <label for="arc12">IBM Silver Partnership standards met (if applicable) <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc13">
+                            <label for="arc13">Investor due diligence ready (clean, professional, comprehensive) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc14">
+                            <label for="arc14">No unresolved critical or major non-conformances <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🚀 Distribution Authorization</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc15">
+                            <label for="arc15">Recipient list approved by project lead <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc16">
+                            <label for="arc16">Sharing permissions configured correctly (read/write/comment) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc17">
+                            <label for="arc17">Watermarking applied for confidential documents <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="arc18">
+                            <label for="arc18">Document tracking enabled for sensitive materials <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h3>📋 Final Approval Decision</h3>
+                    <p><strong>Approved By:</strong> _______________________________</p>
+                    <p><strong>Archive Management Lead:</strong> _______________________________</p>
+                    <p><strong>Date:</strong> _______________________________</p>
+                    <p><strong>Status:</strong> 
+                        <select style="padding: 5px; margin-left: 10px; border-radius: 5px;">
+                            <option>APPROVED - Ready for Distribution</option>
+                            <option>APPROVED WITH MINOR REVISIONS</option>
+                            <option>REJECTED - Major Revisions Required</option>
+                            <option>RECALLED - Critical Issue Identified</option>
+                        </select>
+                    </p>
+                    <p style="margin-top: 10px;"><strong>Comments:</strong></p>
+                    <textarea style="width: 100%; height: 80px; padding: 10px; border-radius: 5px; border: 1px solid #ddd; margin-top: 5px;"></textarea>
+                </div>
+                
+                <button class="download-btn" onclick="downloadChecklist('archive')">📥 Download Archive Approval Form</button>
+            </div>
+            
+            <!-- SECTOR COMPLIANCE TAB -->
+            <div id="compliance" class="tab-content">
+                <h2>🎯 Sector-Specific Compliance Matrices</h2>
+                <p style="color: #666; margin-bottom: 20px;">Comprehensive regulatory requirements for all 6 Nafasi sectors</p>
+                
+                <div class="info-box">
+                    <h3>📌 How to Use These Matrices</h3>
+                    <p>Select your startup's primary sector and verify compliance with all applicable requirements. Each item must be marked as Compliant before investor due diligence.</p>
+                </div>
+                
+                <!-- FINTECH COMPLIANCE -->
+                <div class="checklist-section">
+                    <div class="checklist-header">💰 FINTECH (FTX) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> FTX_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        
+                        <table class="compliance-table">
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Regulatory Body</th>
+                                    <th>Status</th>
+                                    <th>Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Payment Service Provider (PSP) License</td>
+                                    <td>Central Bank of Kenya (CBK)</td>
+                                    <td><span class="status-indicator status-non-compliant"></span> Required</td>
+                                    <td>6-12 months</td>
+                                </tr>
+                                <tr>
+                                    <td>KYC/AML Compliance Program</td>
+                                    <td>CBK / FRC</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before operations</td>
+                                </tr>
+                                <tr>
+                                    <td>PCI-DSS Certification</td>
+                                    <td>PCI Security Standards Council</td>
+                                    <td><span class="status-indicator status-partial"></span> Recommended</td>
+                                    <td>12-18 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Protection Registration</td>
+                                    <td>Office of Data Protection Commissioner</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>30 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Transaction Audit Logging</td>
+                                    <td>CBK Guidelines</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>From Day 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Consumer Protection Framework</td>
+                                    <td>CBK Consumer Protection Division</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before launch</td>
+                                </tr>
+                                <tr>
+                                    <td>Cybersecurity & IT Risk Management</td>
+                                    <td>CBK ICT Guidelines</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Ongoing</td>
+                                </tr>
+                                <tr>
+                                    <td>Third-Party Risk Management</td>
+                                    <td>CBK Outsourcing Guidelines</td>
+                                    <td><span class="status-indicator status-partial"></span> Recommended</td>
+                                    <td>As applicable</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>🔑 Key OW Advocates Services:</h4>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>CBK License Application Support (Aikya GROW/LEAD)</li>
+                                <li>KYC/AML Policy Development</li>
+                                <li>Payment Processing Agreements</li>
+                                <li>Consumer Protection Compliance Audit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- HEALTHTECH COMPLIANCE -->
+                <div class="checklist-section">
+                    <div class="checklist-header">🏥 HEALTHTECH (HTX) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> HTX_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        
+                        <table class="compliance-table">
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Regulatory Body</th>
+                                    <th>Status</th>
+                                    <th>Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Medical Device/Software Registration</td>
+                                    <td>Pharmacy & Poisons Board</td>
+                                    <td><span class="status-indicator status-non-compliant"></span> If applicable</td>
+                                    <td>6-9 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Telemedicine Platform License</td>
+                                    <td>Kenya Medical Practitioners & Dentists Council</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>3-6 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Protection Registration (Health Data)</td>
+                                    <td>ODPC</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>30 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Patient Consent Management System</td>
+                                    <td>Data Protection Act requirements</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before operations</td>
+                                </tr>
+                                <tr>
+                                    <td>HIPAA-Equivalent Security Standards</td>
+                                    <td>Best Practice / Investor Requirement</td>
+                                    <td><span class="status-indicator status-partial"></span> Recommended</td>
+                                    <td>12 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Medical Records Encryption</td>
+                                    <td>Data Protection Act / Best Practice</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>From Day 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Clinical Governance Framework</td>
+                                    <td>Ministry of Health Guidelines</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before launch</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Breach Response Protocol</td>
+                                    <td>ODPC</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>72-hour notification</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>🔑 Key OW Advocates Services:</h4>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Telemedicine Platform Licensing (Aikya GROW/LEAD)</li>
+                                <li>Patient Data Protection Audit & DPIA</li>
+                                <li>Healthcare Provider Agreements</li>
+                                <li>Clinical Governance Policy Development</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EDTECH COMPLIANCE -->
+                <div class="checklist-section">
+                    <div class="checklist-header">📚 EDTECH (ETX) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> ETX_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        
+                        <table class="compliance-table">
+                            <thead>
+                                <tr>
+                                    <th>Requirement</th>
+                                    <th>Regulatory Body</th>
+                                    <th>Status</th>
+                                    <th>Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Education Institution Registration</td>
+                                    <td>Ministry of Education / TVET Authority</td>
+                                    <td><span class="status-indicator status-partial"></span> If offering certificates</td>
+                                    <td>3-6 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Child Data Protection (COPPA-equivalent)</td>
+                                    <td>Data Protection Act + Best Practice</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory for <18</td>
+                                    <td>Before launch</td>
+                                </tr>
+                                <tr>
+                                    <td>Parental Consent Mechanisms</td>
+                                    <td>Data Protection Act</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory for minors</td>
+                                    <td>From Day 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Content Moderation System</td>
+                                    <td>Kenya Film Classification Board / Best Practice</td>
+                                    <td><span class="status-indicator status-compliant"></span> Recommended</td>
+                                    <td>Before user-generated content</td>
+                                </tr>
+                                <tr>
+                                    <td>WCAG 2.1 Accessibility Standards</td>
+                                    <td>Persons with Disabilities Act + Best Practice</td>
+                                    <td><span class="status-indicator status-partial"></span> Recommended</td>
+                                    <td>12-18 months</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Protection Registration</td>
+                                    <td>ODPC</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>30 days</td>
+                                </tr>
+                                <tr>
+                                    <td>Student Privacy Policy</td>
+                                    <td>Data Protection Act</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before collecting data</td>
+                                </tr>
+                                <tr>
+                                    <td>IP Rights for Educational Content</td>
+                                    <td>Copyright Act / KIPI</td>
+                                    <td><span class="status-indicator status-compliant"></span> Mandatory</td>
+                                    <td>Before content creation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>🔑 Key OW Advocates Services:</h4>
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>Child Data Protection Framework (Aikya GROW)</li>
+                                <li>Educational Content Licensing</li>
+                                <li>Student-Teacher Agreements</li>
+                                <li>Accessibility Compliance Audit</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AGRITECH, REC, ENM SECTIONS -->
+                <div class="checklist-section">
+                    <div class="checklist-header">🌾 AGRITECH (ATX) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> ATX_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        <p><strong>Key Regulators:</strong> Ministry of Agriculture, Kenya Plant Health Inspectorate Service (KEPHIS), Pest Control Products Board (PCPB)</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Farmer Data Privacy & Consent</li>
+                            <li>IoT Device Certifications (CAK for wireless devices)</li>
+                            <li>Supply Chain Traceability Standards</li>
+                            <li>Pesticide/Fertilizer Distribution Licenses (if applicable)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">🛒 RETAIL & ECOMMERCE (REC) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> REC_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        <p><strong>Key Regulators:</strong> KRA (VAT), Consumer Protection Act, Data Protection Commissioner</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Business Permit & Trade License</li>
+                            <li>VAT Registration (if turnover >KSh 5M)</li>
+                            <li>Payment Gateway Compliance (CBK if handling funds)</li>
+                            <li>Consumer Rights & Returns Policy</li>
+                            <li>Customer Data Protection (ODPC Registration)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="checklist-section">
+                    <div class="checklist-header">⚡ ENERGY & MANUFACTURING (ENM) - Compliance Matrix</div>
+                    <div class="checklist-body">
+                        <p style="margin-bottom: 15px; color: #666;"><strong>File:</strong> ENM_ARC_COMPLIANCE-MATRIX_REG_202511_v1.0</p>
+                        <p><strong>Key Regulators:</strong> Energy & Petroleum Regulatory Authority (EPRA), NEMA, Occupational Safety & Health Act</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>EPRA License for Energy Projects (generation, distribution)</li>
+                            <li>Environmental Impact Assessment (NEMA)</li>
+                            <li>Industrial IoT Security Standards</li>
+                            <li>Occupational Health & Safety Compliance</li>
+                            <li>Product Quality Certifications (KEBS)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="downloadComplianceMatrix('all')">📥 Download All Compliance Matrices</button>
+            </div>
+            
+            <!-- LEGAL HEALTH CHECK TAB -->
+            <div id="legal" class="tab-content">
+                <h2>⚖️ Legal Health Check Assessment</h2>
+                <p style="color: #666; margin-bottom: 20px;">Based on MC Studio Legal Health Check - Aikya Tier 1 Entry Point (KSh 25,000)</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Questions</div>
+                        <div class="stat-value">52</div>
+                        <div class="stat-label">Across 5 Categories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Compliance Score</div>
+                        <div class="stat-value" id="complianceScore">0%</div>
+                        <div class="stat-label">Target: >85%</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">High Priority</div>
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">Must Address</div>
+                    </div>
+                </div>
+                
+                <!-- BUSINESS STRUCTURE -->
+                <div class="checklist-section">
+                    <div class="checklist-header">🏢 Business Structure & Corporate Governance</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc1" onchange="updateComplianceScore()">
+                            <label for="lhc1">Have you registered your business? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc2" onchange="updateComplianceScore()">
+                            <label for="lhc2">Have you considered incorporating your business (Private Limited vs LLP)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc3" onchange="updateComplianceScore()">
+                            <label for="lhc3">Have you considered scaling your business outside Kenya? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc4" onchange="updateComplianceScore()">
+                            <label for="lhc4">Do you have a formal governance structure in place? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc5" onchange="updateComplianceScore()">
+                            <label for="lhc5">Do you have a founder's agreement in place (if co-founders)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc6" onchange="updateComplianceScore()">
+                            <label for="lhc6">Do you have a shareholders agreement in place? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc7" onchange="updateComplianceScore()">
+                            <label for="lhc7">Have you considered financing through Equity, Debt, or Grant? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc8" onchange="updateComplianceScore()">
+                            <label for="lhc8">Do you have the necessary licenses and permits for your business? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc9" onchange="updateComplianceScore()">
+                            <label for="lhc9">Have you set up a corporate governance structure? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EMPLOYMENT -->
+                <div class="checklist-section">
+                    <div class="checklist-header">👥 Employment Operations</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc10" onchange="updateComplianceScore()">
+                            <label for="lhc10">How many employees does your startup have? (Documented) <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc11" onchange="updateComplianceScore()">
+                            <label for="lhc11">Are your employees aware of their employment rights? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc12" onchange="updateComplianceScore()">
+                            <label for="lhc12">Do your employees have employment agreements? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc13" onchange="updateComplianceScore()">
+                            <label for="lhc13">Do you intend to issue ESOPs to your employees? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc14" onchange="updateComplianceScore()">
+                            <label for="lhc14">Does your startup have employment organizational policies (leave, disciplinary, etc.)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc15" onchange="updateComplianceScore()">
+                            <label for="lhc15">Are you aware of your obligations as an employer (NSSF, NHIF, PAYE)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc16" onchange="updateComplianceScore()">
+                            <label for="lhc16">Do you have IP assignment agreements for employees and contractors? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- COMMERCIAL OPERATIONS -->
+                <div class="checklist-section">
+                    <div class="checklist-header">📄 Commercial Operations</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc17" onchange="updateComplianceScore()">
+                            <label for="lhc17">Do you have commercial contracts for suppliers/partners/stakeholders? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc18" onchange="updateComplianceScore()">
+                            <label for="lhc18">Do you review existing contracts to identify legal loopholes? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc19" onchange="updateComplianceScore()">
+                            <label for="lhc19">Do you have Standard Operating Procedures (SOPs) to streamline commercialization? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc20" onchange="updateComplianceScore()">
+                            <label for="lhc20">Do you have Service Level Agreements for services offered? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc21" onchange="updateComplianceScore()">
+                            <label for="lhc21">Do you conduct performance reviews for existing commercial contracts? <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- DATA PROTECTION -->
+                <div class="checklist-section">
+                    <div class="checklist-header">🔒 Privacy & Data Protection</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc22" onchange="updateComplianceScore()">
+                            <label for="lhc22">Have you used a Data Compliance Checklist to identify risks? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc23" onchange="updateComplianceScore()">
+                            <label for="lhc23">Do you have an existing Data Protection Policy? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc24" onchange="updateComplianceScore()">
+                            <label for="lhc24">Have you registered as a Data Controller/Processor with ODPC? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc25" onchange="updateComplianceScore()">
+                            <label for="lhc25">Are you aware of your obligations as a Data Controller/Processor? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc26" onchange="updateComplianceScore()">
+                            <label for="lhc26">Have you considered appointing a Data Protection Officer? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc27" onchange="updateComplianceScore()">
+                            <label for="lhc27">Have you conducted a GAP/Readiness Assessment? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc28" onchange="updateComplianceScore()">
+                            <label for="lhc28">Have you conducted a Data Protection Impact Assessment (DPIA)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc29" onchange="updateComplianceScore()">
+                            <label for="lhc29">Would organizational training on Privacy & Data Protection be beneficial? <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- INTELLECTUAL PROPERTY -->
+                <div class="checklist-section">
+                    <div class="checklist-header">💡 Intellectual Property</div>
+                    <div class="checklist-body">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc30" onchange="updateComplianceScore()">
+                            <label for="lhc30">Do you have processes for identifying IP assets (audits, checklists)? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc31" onchange="updateComplianceScore()">
+                            <label for="lhc31">Have you identified and registered any Intellectual Property? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc32" onchange="updateComplianceScore()">
+                            <label for="lhc32">Do you have Trademarks, patents, design registrations, or copyright disclaimers? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc33" onchange="updateComplianceScore()">
+                            <label for="lhc33">Have you secured your domain name, web name, or URL? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc34" onchange="updateComplianceScore()">
+                            <label for="lhc34">Is the content of your website copyright protected? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc35" onchange="updateComplianceScore()">
+                            <label for="lhc35">Are your logos registered as trademarks? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc36" onchange="updateComplianceScore()">
+                            <label for="lhc36">Do you have a business name, and is it registered? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc37" onchange="updateComplianceScore()">
+                            <label for="lhc37">Do you have Confidentiality Agreements, License Agreements for creative material? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc38" onchange="updateComplianceScore()">
+                            <label for="lhc38">Have you conducted clearance searches for IP already in use? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc39" onchange="updateComplianceScore()">
+                            <label for="lhc39">Do you have an Intellectual Property Protection Policy? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc40" onchange="updateComplianceScore()">
+                            <label for="lhc40">Are you aware of rights and obligations in owning IP? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc41" onchange="updateComplianceScore()">
+                            <label for="lhc41">Do you have NDAs and procedures for preventing disclosure? <span class="priority-badge priority-high">HIGH</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc42" onchange="updateComplianceScore()">
+                            <label for="lhc42">Do you have processes to identify competitors or infringement risks? <span class="priority-badge priority-medium">MEDIUM</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lhc43" onchange="updateComplianceScore()">
+                            <label for="lhc43">Would organizational training on Intellectual Property be beneficial? <span class="priority-badge priority-low">LOW</span></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h3>📊 Legal Health Check Summary</h3>
+                    <p><strong>Compliance Progress:</strong></p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressBar" style="width: 0%">0%</div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <p><strong>Recommended Aikya Tier:</strong> <span id="recommendedTier">Complete assessment to see recommendation</span></p>
+                        <p style="margin-top: 10px;"><strong>Priority Actions:</strong></p>
+                        <ul id="priorityActions" style="margin-left: 20px; margin-top: 5px;">
+                            <li>Complete the Legal Health Check to identify priority actions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button class="download-btn" onclick="generateLHCReport()">📥 Download Legal Health Check Report</button>
+                <button class="download-btn" onclick="resetLHC()">🔄 Reset Assessment</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+        
+        function updateComplianceScore() {
+            const totalQuestions = 43;
+            const checkedBoxes = document.querySelectorAll('#legal input[type="checkbox"]:checked').length;
+            const score = Math.round((checkedBoxes / totalQuestions) * 100);
+            
+            document.getElementById('complianceScore').textContent = score + '%';
+            document.getElementById('progressBar').style.width = score + '%';
+            document.getElementById('progressBar').textContent = score + '%';
+            
+            // Update recommended tier
+            let tier = '';
+            if (score < 50) {
+                tier = '🥉 AIKYA HUSTLE (Tier 1) - Foundation building required';
+            } else if (score < 85) {
+                tier = '🥈 AIKYA GROW (Tier 2) - Scaling with compliance gaps to address';
+            } else {
+                tier = '🥇 AIKYA LEAD (Tier 3) - Strong compliance foundation, ready for investment';
+            }
+            document.getElementById('recommendedTier').textContent = tier;
+            
+            // Generate priority actions
+            const uncheckedHigh = document.querySelectorAll('#legal input[type="checkbox"]:not(:checked)');
+            const priorityList = document.getElementById('priorityActions');
+            priorityList.innerHTML = '';
+            
+            let actionCount = 0;
+            uncheckedHigh.forEach(checkbox => {
+                if (actionCount < 5) {
+                    const label = checkbox.nextElementSibling;
+                    if (label.textContent.includes('HIGH')) {
+                        const li = document.createElement('li');
+                        li.textContent = label.textContent.replace('HIGH', '').trim();
+                        priorityList.appendChild(li);
+                        actionCount++;
+                    }
+                }
+            });
+            
+            if (actionCount === 0) {
+                priorityList.innerHTML = '<li style="color: #00b894;">✅ All high-priority items completed!</li>';
+            }
+        }
+        
+        function resetLHC() {
+            const checkboxes = document.querySelectorAll('#legal input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateComplianceScore();
+            alert('Legal Health Check assessment has been reset.');
+        }
+        
+        function downloadChecklist(type) {
+            alert(`Downloading ${type.toUpperCase()} QA Checklist...\n\nIn production, this would generate a formatted Excel/PDF checklist for ${type} quality assurance.`);
+        }
+        
+        function downloadComplianceMatrix(sector) {
+            alert(`Downloading ${sector.toUpperCase()} Compliance Matrix...\n\nIn production, this would generate sector-specific compliance documentation.`);
+        }
+        
+        function generateLHCReport() {
+            const score = document.getElementById('complianceScore').textContent;
+            alert(`Generating Legal Health Check Report...\n\nCompliance Score: ${score}\n\nIn production, this would create a detailed PDF report with:\n• Executive summary\n• Category-by-category analysis\n• Risk assessment\n• Recommended actions\n• OW Advocates service proposals`);
+        }
+        
+        // Initialize compliance score on page load
+        updateComplianceScore();
+    </script>
+</body>
+</html>

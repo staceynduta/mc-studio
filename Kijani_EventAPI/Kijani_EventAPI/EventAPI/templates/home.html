@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kijani Event API - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #0f0f0f;
+            background: linear-gradient(135deg, #a8d5e2 0%, #83d18c 50%, #3a7f0d 100%);
+            min-height: 100vh;
+        }
+        .m_container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        .m_logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .m_logo {
+            font-size: 50px;
+            font-weight: bold;
+            color: #3a7f0d;
+            letter-spacing: -1px;
+        }
+        .m_logo .m_domain {
+            color: #0f0f0f;
+        }
+        .m_tagline {
+            font-size: 35px;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            color: #0f0f0f;
+            font-weight: 600;
+        }
+        .m_subtitle {
+            font-size: 20px;
+            opacity: 0.85;
+            color: #0f0f0f;
+            margin-bottom: 30px;
+        }
+        .m_cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .m_btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .m_btn:hover {
+            transform: translateY(-2px);
+        }
+        .m_btn-primary {
+            background: #3a7f0d;
+            color: white;
+        }
+        .m_btn-secondary {
+            background: white;
+            color: #3a7f0d;
+            border: 2px solid #3a7f0d;
+        }
+        .m_main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+        }
+        .m_stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .m_stat-card {
+            padding: 30px;
+            background: linear-gradient(135deg, #3a7f0d 0%, #83d18c 100%);
+            color: white;
+            border-radius: 12px;
+        }
+        .m_stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .m_stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .m_section-title {
+            font-size: 35px;
+            font-weight: 600;
+            color: #0f0f0f;
+            margin: 40px 0 30px;
+            text-align: center;
+        }
+        .m_features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .m_feature-card {
+            padding: 30px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 100%);
+            border: 2px solid rgba(58, 127, 13, 0.2);
+            transition: border-color 0.3s;
+        }
+        .m_feature-card:hover {
+            border-color: #3a7f0d;
+        }
+        .m_feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #0f0f0f;
+        }
+        .m_feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        .m_endpoints {
+            background: #0f0f0f;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            color: white;
+        }
+        .m_endpoints h2 {
+            margin-bottom: 20px;
+            color: #3a7f0d;
+        }
+        .m_endpoint-group {
+            margin-bottom: 25px;
+        }
+        .m_endpoint-group h3 {
+            color: #83d18c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .m_endpoint-item {
+            padding: 12px 15px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            display: flex;
+            gap: 10px;
+        }
+        .m_method {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            min-width: 60px;
+            text-align: center;
+        }
+        .m_method.m_get {
+            background: #3a7f0d;
+        }
+        .m_method.m_post {
+            background: #83d18c;
+            color: #0f0f0f;
+        }
+        .m_method.m_put {
+            background: #f59e0b;
+        }
+        .m_method.m_delete {
+            background: #ef4444;
+        }
+        .m_code-block {
+            background: #0f0f0f;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .m_logo {
+                font-size: 36px;
+            }
+            .m_tagline {
+                font-size: 24px;
+            }
+            .m_main-content {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="m_container">
+        <header>
+            <div class="m_logo-container">
+                <div class="m_logo">kijani<span class="m_domain">.co</span></div>
+            </div>
+            <p class="m_tagline">Event Management Made Simple</p>
+            <p class="m_subtitle">BY VEESUALIZE</p>
+            <div class="m_cta-buttons">
+                <a href="/docs/" class="m_btn m_btn-primary">📚 View API Docs</a>
+                <a href="/admin/" class="m_btn m_btn-secondary">🔐 Admin Panel</a>
+            </div>
+        </header>
+
+        <div class="m_main-content">
+            <div class="m_stats">
+                <div class="m_stat-card">
+                    <div class="m_stat-number">20+</div>
+                    <div class="m_stat-label">API Endpoints</div>
+                </div>
+                <div class="m_stat-card">
+                    <div class="m_stat-number">JWT</div>
+                    <div class="m_stat-label">Secure Auth</div>
+                </div>
+                <div class="m_stat-card">
+                    <div class="m_stat-number">100%</div>
+                    <div class="m_stat-label">RESTful</div>
+                </div>
+            </div>
+
+            <h2 class="m_section-title">✨ Key Features</h2>
+
+            <div class="m_features">
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Authentication</h3>
+                    <p class="m_feature-description">
+                        Secure JWT-based authentication with role-based access control for organizers and attendees.
+                    </p>
+                </div>
+
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Event Management</h3>
+                    <p class="m_feature-description">
+                        Complete CRUD operations with capacity management, categories, and advanced filtering options.
+                    </p>
+                </div>
+
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Registration System</h3>
+                    <p class="m_feature-description">
+                        Automatic capacity tracking, waitlist support, and seamless registration management.
+                    </p>
+                </div>
+
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Advanced Search</h3>
+                    <p class="m_feature-description">
+                        Filter by date, location, category, and search across titles and descriptions.
+                    </p>
+                </div>
+
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Analytics</h3>
+                    <p class="m_feature-description">
+                        Detailed event statistics, registration timelines, and attendee management for organizers.
+                    </p>
+                </div>
+
+                <div class="m_feature-card">
+                    <h3 class="m_feature-title">Documentation</h3>
+                    <p class="m_feature-description">
+                        Interactive Swagger UI with comprehensive endpoint descriptions and examples.
+                    </p>
+                </div>
+            </div>
+
+            <div class="m_endpoints">
+                <h2>🚀 Quick Start</h2>
+
+                <div class="m_endpoint-group">
+                    <h3>1. Register a new user</h3>
+                    <div class="m_code-block">POST /api/v1/auth/register/
+{
+  "username": "johndoe",
+  "email": "john@example.com",
+  "password": "secure_password",
+  "password_confirm": "secure_password",
+  "role": "organizer"
+}</div>
+                </div>
+
+                <div class="m_endpoint-group">
+                    <h3>2. Login to get tokens</h3>
+                    <div class="m_code-block">POST /api/v1/auth/login/
+{
+  "username": "johndoe",
+  "password": "secure_password"
+}</div>
+                </div>
+
+                <div class="m_endpoint-group">
+                    <h3>3. Create an event</h3>
+                    <div class="m_code-block">POST /api/v1/events/
+Authorization: Bearer your_access_token
+{
+  "title": "Tech Workshop",
+  "description": "Learn to code",
+  "event_date": "2025-12-01T14:00:00Z",
+  "location": "Nairobi",
+  "capacity": 50
+}</div>
+                </div>
+            </div>
+
+            <div class="m_endpoints">
+                <h2>📋 Main Endpoints</h2>
+
+                <div class="m_endpoint-group">
+                    <h3>Authentication</h3>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_post">POST</span>
+                        <span>/api/v1/auth/register/</span>
+                    </div>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_post">POST</span>
+                        <span>/api/v1/auth/login/</span>
+                    </div>
+                </div>
+
+                <div class="m_endpoint-group">
+                    <h3>Events</h3>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_get">GET</span>
+                        <span>/api/v1/events/</span>
+                    </div>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_post">POST</span>
+                        <span>/api/v1/events/</span>
+                    </div>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_get">GET</span>
+                        <span>/api/v1/events/{slug}/</span>
+                    </div>
+                </div>
+
+                <div class="m_endpoint-group">
+                    <h3>Registration</h3>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_post">POST</span>
+                        <span>/api/v1/events/{slug}/register/</span>
+                    </div>
+                    <div class="m_endpoint-item">
+                        <span class="m_method m_delete">DELETE</span>
+                        <span>/api/v1/events/{slug}/register/</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Kijani Event API. Built with Django & Django REST Framework.</p>
+            <p style="margin-top: 10px; opacity: 0.8">
+                Made with ❤️ for community managers everywhere
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

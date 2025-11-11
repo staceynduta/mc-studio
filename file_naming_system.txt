@@ -1,0 +1,377 @@
+# MC Studio x OW Advocates File Nomenclature System
+## Version 1.0 | November 2025
+
+---
+
+## 1. CORE STRUCTURE HIERARCHY
+
+```
+[SECTOR]_[DEPARTMENT]_[PROJECT-ID]_[DOCTYPE]_[YYYYMM]_[VERSION].[ext]
+```
+
+---
+
+## 2. SECTOR CODES (6 Primary Sectors)
+
+| Code | Sector | Description |
+|------|--------|-------------|
+| **FTX** | Fintech | Payment systems, mobile money, digital banking, lending platforms |
+| **HTX** | Healthtech | Telemedicine, health records, diagnostics, pharma tech |
+| **ETX** | Edtech | E-learning, educational platforms, training systems |
+| **ATX** | Agritech | Farm management, supply chain, agricultural finance |
+| **REC** | Retail & E-commerce | Online marketplaces, POS systems, logistics |
+| **ENM** | Energy & Manufacturing | Renewable energy, industrial IoT, production systems |
+| **XSC** | Cross-Sector | Multi-sector projects or general resources |
+
+---
+
+## 3. DEPARTMENT CODES
+
+| Code | Department | Primary Function |
+|------|-----------|------------------|
+| **RES** | Research Repo | Market research, legal research, sector analysis, compliance studies |
+| **DEV** | Developers Den | Codebase, technical documentation, API specs, testing scripts |
+| **WRT** | Writers Room | Content creation, marketing materials, reports, documentation |
+| **ARC** | Archive Management | File oversight, version control, access management, audits |
+| **LEG** | Legal Operations | Contracts, compliance docs, IP filings, due diligence |
+| **INV** | Investment Tracking | Cap tables, term sheets, DD reports, valuation models |
+
+---
+
+## 4. DOCUMENT TYPE CODES
+
+### Legal Documents (LEG)
+- **SHA** - Shareholders Agreement
+- **EMP** - Employment Contracts
+- **NDA** - Non-Disclosure Agreements
+- **IPG** - IP Assignment/Protection
+- **CMP** - Compliance Documentation
+- **DDR** - Due Diligence Report
+- **TMS** - Term Sheets
+- **LHC** - Legal Health Check
+- **POL** - Policies & Procedures
+
+### Research Documents (RES)
+- **MKT** - Market Research
+- **REG** - Regulatory Analysis
+- **SEC** - Sector Report
+- **CMP** - Competitive Analysis
+- **TRN** - Trend Analysis
+
+### Development (DEV)
+- **SRC** - Source Code
+- **API** - API Documentation
+- **TST** - Testing Scripts
+- **DOC** - Technical Documentation
+- **CFG** - Configuration Files
+- **SCH** - Schema/Database Design
+
+### Content (WRT)
+- **BLG** - Blog Posts
+- **WHT** - Whitepapers
+- **CSE** - Case Studies
+- **RPT** - Reports
+- **PRE** - Presentations
+- **MKC** - Marketing Copy
+
+### Investment (INV)
+- **CAP** - Cap Table
+- **VAL** - Valuation Model
+- **PIT** - Pitch Deck
+- **FIN** - Financial Statements
+- **INV** - Investment Agreement
+
+---
+
+## 5. PROJECT IDENTIFICATION
+
+Format: `[STARTUP-NAME]-[TIER]`
+
+**Tier Codes** (from Aikya Legal framework):
+- **T1H** - Tier 1: HUSTLE (Founder Tier)
+- **T2G** - Tier 2: GROW (Scale & Formalisation)
+- **T3L** - Tier 3: LEAD (Market Leader)
+
+**Example:** `MPESA-T2G`, `FARMTRACK-T1H`, `EDULEARN-T3L`
+
+---
+
+## 6. DATE FORMAT
+
+- **YYYYMM** - Year and Month of creation
+- Example: `202511` for November 2025
+
+---
+
+## 7. VERSION CONTROL
+
+- **v[X].[Y]** - Major.Minor version
+  - Major (X): Significant changes, new sections, restructuring
+  - Minor (Y): Edits, corrections, updates
+- **DRAFT** - Working document
+- **FINAL** - Approved/signed document
+- **ARCH** - Archived version
+
+---
+
+## 8. FILE EXTENSION STANDARDS
+
+### Documents
+- `.docx` - Word documents (contracts, agreements)
+- `.pdf` - Final/signed documents
+- `.md` - Markdown documentation
+
+### Code
+- `.js` / `.py` / `.java` / `.go` - Source code files
+- `.json` / `.yaml` / `.xml` - Configuration files
+- `.sql` - Database scripts
+
+### Data
+- `.csv` - Data exports, spreadsheets
+- `.xlsx` - Excel workbooks
+- `.db` / `.sqlite` - Database files
+
+### Media
+- `.png` / `.jpg` - Images
+- `.svg` - Vector graphics
+- `.mp4` / `.mov` - Video files
+- `.mp3` / `.wav` - Audio files
+
+---
+
+## 9. COMPLETE NAMING EXAMPLES
+
+### Legal Documents
+```
+FTX_LEG_MPESA-T2G_SHA_202511_v1.0.docx
+HTX_LEG_MEDAPP-T1H_LHC_202511_FINAL.pdf
+ATX_LEG_FARMCO-T2G_DDR_202510_v2.3.pdf
+REC_LEG_SHOPIFY-T3L_TMS_202511_DRAFT.docx
+```
+
+### Research Documents
+```
+FTX_RES_SECTOR-ANALYSIS_MKT_202511_v1.0.pdf
+HTX_RES_CBK-COMPLIANCE_REG_202510_FINAL.pdf
+XSC_RES_NAFASI-COHORT_SEC_202511_v1.2.xlsx
+```
+
+### Development Files
+```
+FTX_DEV_MPESA-T2G_API_202511_v3.1.md
+ETX_DEV_EDUAPP-T1H_SRC_202511_v2.0.js
+ENM_DEV_SOLAR-T2G_TST_202510_v1.5.py
+ATX_DEV_FARMTRACK-T1H_CFG_202511_v1.0.json
+```
+
+### Content & Marketing
+```
+HTX_WRT_TELEMEDICINE_WHT_202511_v1.0.pdf
+REC_WRT_ECOMMERCE-GUIDE_BLG_202510_FINAL.md
+FTX_WRT_FINTECH-REPORT_RPT_202511_v2.0.docx
+```
+
+### Investment Tracking
+```
+FTX_INV_MPESA-T2G_CAP_202511_v4.2.xlsx
+ATX_INV_FARMCO-T1H_PIT_202510_FINAL.pdf
+HTX_INV_MEDAPP-T2G_VAL_202511_v1.0.xlsx
+```
+
+---
+
+## 10. FOLDER STRUCTURE
+
+```
+MC-STUDIO-OW/
+│
+├── 01_FINTECH-FTX/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 02_HEALTHTECH-HTX/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 03_EDTECH-ETX/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 04_AGRITECH-ATX/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 05_RETAIL-ECOMMERCE-REC/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 06_ENERGY-MANUFACTURING-ENM/
+│   ├── RES_Research/
+│   ├── DEV_Developers-Den/
+│   ├── WRT_Writers-Room/
+│   ├── LEG_Legal/
+│   └── INV_Investment/
+│
+├── 07_CROSS-SECTOR-XSC/
+│   ├── Templates/
+│   ├── Training-Materials/
+│   └── General-Resources/
+│
+└── 08_ARCHIVE-ARC/
+    ├── 2024/
+    ├── 2025/
+    └── Legacy/
+```
+
+---
+
+## 11. ARCHIVE MANAGEMENT PROTOCOLS
+
+### Access Levels (ARC Department Control)
+- **Level 1 - Public:** General resources, marketing materials
+- **Level 2 - Internal:** Team documentation, internal reports
+- **Level 3 - Confidential:** Client contracts, IP documents
+- **Level 4 - Restricted:** Due diligence, investment terms, sensitive legal
+
+### Archive Rules
+1. Files older than 24 months → Move to ARCHIVE-ARC
+2. Maintain original nomenclature with `_ARCH` suffix
+3. Quarterly audit by ARC team
+4. Annual purge of non-essential drafts (with stakeholder approval)
+
+### Version Control
+- Keep last 3 major versions in active folders
+- All previous versions in ARCHIVE-ARC/[YEAR]/[SECTOR]
+
+---
+
+## 12. GIT REPOSITORY STRUCTURE
+
+```
+repo-name/
+│
+├── .gitignore
+├── README.md
+├── LICENSE
+│
+├── src/                    # DEV - Source code
+├── docs/                   # WRT - Documentation
+├── research/               # RES - Research materials
+├── legal/                  # LEG - Legal templates (sanitized)
+├── tests/                  # DEV - Testing scripts
+│
+└── archive/                # ARC - Archived materials
+```
+
+### Git Branch Naming
+```
+[sector]/[feature-type]/[brief-description]
+
+Examples:
+ftx/feature/payment-gateway
+htx/bugfix/api-authentication
+etx/docs/user-manual-update
+```
+
+---
+
+## 13. METADATA TAGS (for searchability)
+
+Every file should include metadata in header/properties:
+
+```yaml
+---
+sector: FTX
+department: LEG
+project: MPESA-T2G
+doc_type: SHA
+created: 2025-11
+version: 1.0
+author: OW-Advocates
+status: DRAFT
+tags: [shareholders, equity, fintech, series-a]
+access_level: 3-Confidential
+---
+```
+
+---
+
+## 14. SPECIAL CASE HANDLING
+
+### Multi-Sector Projects
+Use `XSC` code with primary sector tag:
+```
+XSC_LEG_HYBRID-T2G_SHA_202511_v1.0_[PRIMARY-FTX].pdf
+```
+
+### Cross-Border Projects (EMEA)
+Add country code suffix:
+```
+FTX_LEG_MPESA-T2G_DDR_202511_v1.0_[UG].pdf  (Uganda)
+HTX_LEG_MEDAPP-T1H_CMP_202511_v1.0_[TZ].pdf (Tanzania)
+```
+
+### IBM Partnership Materials
+Use `IBM-BP` prefix for IBM Business Partner docs:
+```
+IBM-BP_XSC_DEV_QA-FRAMEWORK_DOC_202511_v1.0.pdf
+```
+
+---
+
+## 15. QUICK REFERENCE CHEAT SHEET
+
+| Element | Options | Example |
+|---------|---------|---------|
+| **Sector** | FTX, HTX, ETX, ATX, REC, ENM, XSC | FTX |
+| **Department** | RES, DEV, WRT, ARC, LEG, INV | LEG |
+| **Project** | [NAME-TIER] | MPESA-T2G |
+| **DocType** | SHA, EMP, API, MKT, etc. | SHA |
+| **Date** | YYYYMM | 202511 |
+| **Version** | v[X].[Y], DRAFT, FINAL, ARCH | v1.0 |
+
+**Full Example:**
+```
+FTX_LEG_MPESA-T2G_SHA_202511_v1.0.pdf
+```
+
+---
+
+## 16. IMPLEMENTATION CHECKLIST
+
+- [ ] Train all teams on nomenclature system
+- [ ] Update existing files to new format (priority: active projects)
+- [ ] Configure Git repository structure
+- [ ] Set up Drive/shared library folders
+- [ ] Assign ARC team permissions and audit schedule
+- [ ] Create automated file naming templates
+- [ ] Document exceptions and escalation process
+- [ ] Quarterly review and system optimization
+
+---
+
+## NOTES
+- **This system is mandatory for all MC Studio x OW Advocates files**
+- **Archive Management (ARC) has final authority on file organization**
+- **Updates to this system require ARC approval and change log documentation**
+
+---
+
+*Document Owner: Archive Management Department*  
+*Last Updated: November 2025*  
+*Next Review: February 2026*
